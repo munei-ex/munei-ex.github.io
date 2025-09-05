@@ -1,18 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // --- DOM ELEMENTS (変更なし) ---
+  // --- DOM ELEMENTS ---
   const card = document.getElementById('card');
   const cardFront = document.getElementById('card-front');
-  const cardBack = document.getElementById('card-back');
+  const cardBackText = document.getElementById('card-back-text'); // 裏面のテキスト部分
+  const cardImage = document.getElementById('card-image');     // 裏面の画像部分
   const categoryFilter = document.getElementById('category-filter');
   const progressText = document.getElementById('progress');
-  
-  // --- STATE (変更なし) ---
+  const memoTextarea = document.getElementById('memo-textarea'); // メモエリア
+  const memoStatus = document.getElementById('memo-status');   // メモの保存状態表示
+
+  // --- STATE ---
   let fullDataset = [];
   let currentCards = [];
   let currentIndex = 0;
-  let proficiency = JSON.parse(localStorage.getItem('pharmaProficiency')) || {};
+  // メモと習熟度を一つのオブジェクトで管理
+  let userProgress = JSON.parse(localStorage.getItem('pharmaUserProgress')) || {};
 
-  // --- CSV DATA LOADING (変更なし) ---
+  // --- CSV DATA LOADING ---
   Papa.parse('data.csv', {
     download: true,
     header: true,
@@ -33,38 +37,36 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- FUNCTIONS ---
-  // saveProficiency, populateCategories, filterAndShuffleの各関数は変更なし
-  function saveProficiency() {
-    localStorage.setItem('pharmaProficiency', JSON.stringify(proficiency));
+  function saveUserProgress() {
+    localStorage.setItem('pharmaUserProgress', JSON.stringify(userProgress));
   }
   
-  function populateCategories() {
-    const categories = [...new Set(fullDataset.map(item => item.category))];
-    categories.forEach(category => {
-      const option = document.createElement('option');
-      option.value = category;
-      option.textContent = category;
-      categoryFilter.appendChild(option);
-    });
-  }
-
-  function filterAndShuffle(isReviewMode = false) {
+  // ▼▼▼ シャッフル機能のロジック ▼▼▼
+  function filterAndShuffle(mode = 'default') {
     const selectedCategory = categoryFilter.value;
     let filteredData;
 
-    if (isReviewMode) {
-      const reviewIds = Object.keys(proficiency).filter(id => proficiency[id] === 'review');
-      filteredData = fullDataset.filter(item => reviewIds.includes(item.id));
-      if (filteredData.length === 0) {
-        alert('「苦手」にマークされたカードはありません。');
-        return;
-      }
-    } else {
-      if (selectedCategory !== 'all') {
-        filteredData = fullDataset.filter(item => item.category === selectedCategory);
-      } else {
-        filteredData = [...fullDataset];
-      }
+    switch (mode) {
+      case 'review':
+        const reviewIds = Object.keys(userProgress).filter(id => userProgress[id]?.status === 'review');
+        filteredData = fullDataset.filter(item => reviewIds.includes(item.id));
+        if (filteredData.length === 0) {
+          alert('「苦手」にマークされたカードはありません。');
+          return;
+        }
+        break;
+      case 'imageOnly':
+        filteredData = fullDataset.filter(item => item.image && item.image.trim() !== '');
+        if (filteredData.length === 0) {
+          alert('画像のあるカードはありません。');
+          return;
+        }
+        break;
+      default:
+        filteredData = (selectedCategory === 'all')
+          ? [...fullDataset]
+          : fullDataset.filter(item => item.category === selectedCategory);
+        break;
     }
     
     currentCards = filteredData.sort(() => Math.random() - 0.5);
@@ -72,22 +74,35 @@ document.addEventListener('DOMContentLoaded', () => {
     displayCard();
   }
 
-  // ▼▼▼ この関数を修正 ▼▼▼
-  // カードが表示される際に、必ず表面に戻す処理を徹底
   function displayCard() {
-    // この一行が重要：カードを必ず表面（薬品名）に戻します
     card.classList.remove('is-flipped');
     
     if (currentCards.length === 0) {
       cardFront.textContent = '対象のカードがありません';
-      cardBack.textContent = 'フィルターを変更してください';
+      cardBackText.textContent = '';
+      cardImage.style.display = 'none'; // 画像を隠す
+      memoTextarea.disabled = true;
       progressText.textContent = '0 / 0';
       return;
     }
     
+    memoTextarea.disabled = false;
     const cardData = currentCards[currentIndex];
     cardFront.textContent = cardData.drug;
-    cardBack.textContent = cardData.mechanism;
+    cardBackText.textContent = cardData.mechanism; // テキスト部分に機序を設定
+
+    // ▼▼▼ 画像の表示処理 ▼▼▼
+    if (cardData.image && cardData.image.trim() !== '') {
+      cardImage.src = `images/${cardData.image}`;
+      cardImage.style.display = 'block';
+    } else {
+      cardImage.src = '';
+      cardImage.style.display = 'none';
+    }
+
+    // メモ表示と進捗表示は変更なし
+    const cardId = cardData.id;
+    memoTextarea.value = userProgress[cardId]?.memo || '';
     updateProgress();
   }
   
@@ -95,54 +110,79 @@ document.addEventListener('DOMContentLoaded', () => {
       progressText.textContent = `${currentIndex + 1} / ${currentCards.length}`;
   }
 
-  // markCard関数は変更なし
   function markCard(status) {
     if (currentCards.length === 0) return;
     const cardId = currentCards[currentIndex].id;
-    proficiency[cardId] = status;
-    saveProficiency();
+    // userProgressオブジェクトにIDがなければ作成
+    if (!userProgress[cardId]) userProgress[cardId] = {};
+    // ステータスを保存
+    userProgress[cardId].status = status;
+    saveUserProgress();
     nextCard();
   }
 
-  // ▼▼▼ この関数を修正 ▼▼▼
   function nextCard() {
     if (currentIndex < currentCards.length - 1) {
       currentIndex++;
-      displayCard(); // displayCardを呼ぶことで、次のカードが表面で表示される
+      displayCard();
     } else {
       alert('このカテゴリの最後のカードです！');
     }
   }
   
-  // ▼▼▼ 新しい関数を追加 ▼▼▼
   function prevCard() {
     if (currentIndex > 0) {
       currentIndex--;
-      displayCard(); // displayCardを呼ぶことで、前のカードが表面で表示される
+      displayCard();
     } else {
       alert('最初のカードです！');
     }
   }
+  
+  // ▼▼▼ メモを保存する関数 ▼▼▼
+  function saveMemo() {
+      if (currentCards.length === 0) return;
+      const cardId = currentCards[currentIndex].id;
+      // userProgressオブジェクトにIDがなければ作成
+      if (!userProgress[cardId]) userProgress[cardId] = {};
+      // メモ内容を保存
+      userProgress[cardId].memo = memoTextarea.value;
+      saveUserProgress();
+      // 保存したことをユーザーにフィードバック
+      memoStatus.textContent = '保存しました！';
+      setTimeout(() => { memoStatus.textContent = ''; }, 2000); // 2秒後にメッセージを消す
+  }
 
-  // ▼▼▼ この関数を修正 ▼▼▼
+
   function addEventListeners() {
     card.addEventListener('click', () => card.classList.toggle('is-flipped'));
     
-    // 「前へ」ボタンのイベントリスナーを追加
     document.getElementById('prev-btn').addEventListener('click', prevCard);
-    
     document.getElementById('next-btn').addEventListener('click', nextCard);
     document.getElementById('mark-learned-btn').addEventListener('click', () => markCard('learned'));
     document.getElementById('mark-review-btn').addEventListener('click', () => markCard('review'));
     
     categoryFilter.addEventListener('change', () => filterAndShuffle(false));
-    
     document.getElementById('review-mode-btn').addEventListener('click', () => filterAndShuffle(true));
     
+
+    // ▼▼▼ シャッフルボタンのイベントリスナーを追加 ▼▼▼
+    document.getElementById('shuffle-btn').addEventListener('click', shuffleCurrentCards);
+    
+    // ▼▼▼ 「画像ありのみ」ボタンのイベントリスナーを追加 ▼▼▼
+    document.getElementById('image-only-btn').addEventListener('click', () => filterAndShuffle('imageOnly'));
+    
+    categoryFilter.addEventListener('change', () => filterAndShuffle('default'));
+    document.getElementById('review-mode-btn').addEventListener('click', () => filterAndShuffle('review'));
+    
+    // ▼▼▼ メモ入力のイベントリスナーを追加 ▼▼▼
+    // ユーザーが入力を終えたタイミングで自動保存
+    memoTextarea.addEventListener('blur', saveMemo);
+    
     document.getElementById('reset-btn').addEventListener('click', () => {
-      if (confirm('本当にすべての進捗をリセットしますか？')) {
-        proficiency = {};
-        saveProfrophy();
+      if (confirm('本当にすべての進捗（習熟度とメモ）をリセットしますか？')) {
+        userProgress = {};
+        saveUserProgress();
         alert('進捗をリセットしました。');
         filterAndShuffle();
       }
