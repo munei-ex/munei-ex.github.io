@@ -1,0 +1,130 @@
+/* body, h1, .controls, select, buttonなどの基本スタイルは変更なし */
+body {
+  font-family: sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  color: #444;
+}
+
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+select, button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mode-group button {
+    background-color: #6c757d;
+    color: white;
+}
+
+#reset-btn {
+    background-color: #dc3545;
+}
+
+/* カードのスタイルは変更なし */
+.card-container {
+  perspective: 1500px;
+  width: 90%;
+  max-width: 400px;
+  height: 200px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d; /* ← これが正しい */
+  transition: transform 0.7s;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-front {
+  background: #ffffff;
+  border: 1px solid #ddd;
+}
+
+.card-back {
+  background: #f0f7ff;
+  border: 1px solid #cce0ff;
+  transform: rotateY(180deg);
+}
+
+/* ▼▼▼ ボタンのスタイルを変更・追加 ▼▼▼ */
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-buttons button {
+  min-width: 90px;
+  padding: 10px 15px;
+  font-weight: bold;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+#mark-review-btn {
+  background-color: #ffc107; /* 黄色 */
+}
+
+#mark-learned-btn {
+  background-color: #28a745; /* 緑 */
+}
+
+#prev-btn, #next-btn {
+  background-color: #007bff; /* 青 */
+}
+
+/* progressのスタイルは変更なし */
+.progress {
+  margin-top: 15px;
+  color: #555;
+  font-size: 14px;
+}

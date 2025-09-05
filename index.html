@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>薬理 暗記カード</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+  <h1>薬理 暗記カード 🧠</h1>
+
+  <div class="controls">
+    <div class="filter-group">
+      <label for="category-filter">分野フィルター:</label>
+      <select id="category-filter">
+        <option value="all">すべて</option>
+      </select>
+    </div>
+    <div class="mode-group">
+      <button id="review-mode-btn">苦手だけ復習</button>
+      <button id="reset-btn">進捗リセット</button>
+    </div>
+  </div>
+
+  <div class="card-container" id="card-container">
+    <div class="card" id="card">
+      <div class="card-face card-front" id="card-front">Loading...</div>
+      <div class="card-face card-back" id="card-back"></div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button id="mark-review-btn">苦手</button>
+    <button id="prev-btn">← 前へ</button>
+    <button id="next-btn">次へ →</button>
+    <button id="mark-learned-btn">覚えた</button>
+  </div>
+  
+  <p class="progress" id="progress"></p>
+
+  <script src="app.js"></script>
+</body>
+</html>
