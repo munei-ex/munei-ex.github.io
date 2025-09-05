@@ -30,13 +30,11 @@ body {
   font-family: sans-serif;
   background-color: var(--color-background);
   color: var(--color-text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-bottom: 100px;
   min-height: 100vh;
   margin: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 h1 {
@@ -53,6 +51,10 @@ h1 {
    2. コントロールパネル (Control Panel)
    ================================================== */
 .controls {
+  width: 90%;                  /* Add */
+  max-width: 800px;            /* Add */
+  margin-left: auto;           /* Add */
+  margin-right: auto;          /* Add */
   margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -182,6 +184,8 @@ button {
 #gallery-view {
   width: 90%;
   max-width: 800px;
+  margin-left: auto;           /* Add */
+  margin-right: auto;          /* Add */
   text-align: center;
 }
 
@@ -280,4 +284,13 @@ button {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
+}
+
+#flashcard-view {
+  width: 100%; /* Take up the full width of its parent */
+  
+  /* These three lines will center the content INSIDE this container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
