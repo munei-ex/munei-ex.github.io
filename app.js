@@ -92,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('undo-btn').addEventListener('click', undoLastAction);
     categoryFilter.addEventListener('change', () => filterAndShuffle('default'));
     document.getElementById('review-mode-btn').addEventListener('click', () => {
-      categoryFilter.value = 'all';
       filterAndShuffle('review');
     });
     document.getElementById('image-only-btn').addEventListener('click', () => {
@@ -100,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
       filterAndShuffle('imageOnly');
     });
     document.getElementById('shuffle-btn').addEventListener('click', () => {
-      categoryFilter.value = 'all';
       filterAndShuffle('default');
       showNotification('すべてのカードをシャッフルしました！');
     });
