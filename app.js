@@ -64,21 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 「苦手だけ復習」ボタンが押された時
     document.getElementById('review-mode-btn').addEventListener('click', () => {
-      categoryFilter.value = 'all'; // ← この行を追加！
+      categoryFilter.value = 'all';
       filterAndShuffle('review');
     });
 
-    // 「画像ありのみ」ボタンが押された時
     document.getElementById('image-only-btn').addEventListener('click', () => {
-      categoryFilter.value = 'all'; // ← この行を追加！
+      categoryFilter.value = 'all';
       filterAndShuffle('imageOnly');
     });
-// 「シャッフル」ボタンが押された時、フィルターをリセットして全体をシャッフル
+
     document.getElementById('shuffle-btn').addEventListener('click', () => {
-      categoryFilter.value = 'all'; // 分野フィルターを「すべて」に戻す
-      filterAndShuffle('default');    // 「すべて」のカードをフィルタリングし直してシャッフル
-      alert('すべてのカードをシャッフルしました！'); // メッセージを分かりやすく変更
+      categoryFilter.value = 'all';
+      filterAndShuffle('default');
     });
+    
     document.getElementById('gallery-btn').addEventListener('click', () => toggleView(true));
     document.getElementById('back-to-flashcard-btn').addEventListener('click', () => toggleView(false));
 
@@ -97,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================================================
   // 4. UI更新系関数 (UI Updates)
   // ==================================================
-  /** 現在のカードを画面に表示する */
   function displayCard() {
     card.classList.remove('is-flipped');
     
@@ -113,8 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     memoTextarea.disabled = false;
     const cardData = currentCards[currentIndex];
+    
+    // ▼▼▼【修正点1】plusAlfaの内容を裏面に表示 ▼▼▼
+    let backContent = cardData.mechanism;
+    if (cardData.plusAlfa && cardData.plusAlfa.trim() !== '') {
+      backContent += `\n\n💡 +α:\n${cardData.plusAlfa}`;
+    }
     cardFront.textContent = cardData.drug;
-    cardBackText.textContent = cardData.mechanism;
+    cardBackText.textContent = backContent;
+    // ▲▲▲ ここまで ▲▲▲
 
     if (cardData.image && cardData.image.trim() !== '') {
       cardImage.src = `images/${cardData.image}`;
@@ -129,12 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgress();
   }
 
-  /** 進捗表示（例: 5 / 20）を更新する */
   function updateProgress() {
     progressText.textContent = `${currentIndex + 1} / ${currentCards.length}`;
   }
 
-  /** カテゴリーフィルターの選択肢を作成する */
   function populateCategories() {
     const categories = [...new Set(fullDataset.map(item => item.category))];
     categories.forEach(category => {
@@ -145,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /** 画像ギャラリーを作成する */
   function populateGallery() {
     galleryGrid.innerHTML = '';
     const itemsWithImages = fullDataset.filter(item => item.image && item.image.trim() !== '');
@@ -156,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const img = document.createElement('img');
       img.src = `images/${item.image}`;
-      img.onerror = function() { this.parentElement.style.display = 'none'; }; // 画像がないアイテムは非表示
+      img.onerror = function() { this.parentElement.style.display = 'none'; };
       
       const name = document.createElement('p');
       name.textContent = item.drug;
@@ -167,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /** 単語帳とギャラリーの表示を切り替える */
   function toggleView(showGallery) {
     if (showGallery) {
       flashcardView.classList.add('hidden');
@@ -177,27 +178,34 @@ document.addEventListener('DOMContentLoaded', () => {
       galleryView.classList.add('hidden');
     }
   }
+  
+  // ▼▼▼【修正点2】通知表示用の関数を追加 ▼▼▼
+  function showNotification(message, duration = 2000) {
+    memoStatus.textContent = message;
+    setTimeout(() => {
+      if (memoStatus.textContent === message) {
+        memoStatus.textContent = '';
+      }
+    }, duration);
+  }
+  // ▲▲▲ ここまで ▲▲▲
 
   // ==================================================
   // 5. データ・状態管理系関数 (Data & State Management)
   // ==================================================
-  /** ユーザーの進捗（習熟度、メモ）をブラウザに保存する */
   function saveUserProgress() {
     localStorage.setItem('pharmaUserProgress', JSON.stringify(userProgress));
   }
 
-  /** メモを保存する */
   function saveMemo() {
     if (currentCards.length === 0) return;
     const cardId = currentCards[currentIndex].id;
     if (!userProgress[cardId]) userProgress[cardId] = {};
     userProgress[cardId].memo = memoTextarea.value;
     saveUserProgress();
-    memoStatus.textContent = '保存しました！';
-    setTimeout(() => { memoStatus.textContent = ''; }, 2000);
+    showNotification('メモを保存しました！'); // ← ここもついでに変更
   }
 
-  /** カードの習熟度（覚えた/苦手）を記録する */
   function markCard(status) {
     if (currentCards.length === 0) return;
     const cardId = currentCards[currentIndex].id;
@@ -207,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
     nextCard();
   }
 
-  /** 条件に応じてカードをフィルタリングし、シャッフルする */
   function filterAndShuffle(mode = 'default') {
     const selectedCategory = categoryFilter.value;
     let filteredData;
@@ -216,11 +223,17 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'review':
         const reviewIds = Object.keys(userProgress).filter(id => userProgress[id]?.status === 'review');
         filteredData = fullDataset.filter(item => reviewIds.includes(item.id));
-        if (filteredData.length === 0) { alert('「苦手」にマークされたカードはありません。'); return; }
+        if (filteredData.length === 0) { 
+            showNotification('「苦手」にマークされたカードはありません。'); // ← alertから変更
+            return; 
+        }
         break;
       case 'imageOnly':
         filteredData = fullDataset.filter(item => item.image && item.image.trim() !== '');
-        if (filteredData.length === 0) { alert('画像のあるカードはありません。'); return; }
+        if (filteredData.length === 0) {
+            showNotification('画像のあるカードはありません。'); // ← alertから変更
+            return;
+        }
         break;
       default:
         filteredData = (selectedCategory === 'all')
@@ -237,14 +250,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================================================
   // 6. カード操作系関数 (Card Navigation & Actions)
   // ==================================================
-
-  /** 次のカードへ進む */
   function nextCard() {
     if (currentIndex < currentCards.length - 1) {
       currentIndex++;
       displayCard();
     } else {
-      alert('このカテゴリの最後のカードです！');
+      showNotification('このカテゴリの最後のカードです！'); // ← alertから変更
     }
   }
   
@@ -254,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentIndex--;
       displayCard();
     } else {
-      alert('最初のカードです！');
+      showNotification('最初のカードです！'); // ← alertから変更
     }
   }
 });
