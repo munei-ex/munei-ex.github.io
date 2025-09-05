@@ -1,8 +1,35 @@
-/* body, h1, .controls, select, buttonなどの基本スタイルは変更なし */
+/* ==================================================
+   0. 変数定義 (Variables)
+   ================================================== */
+:root {
+  --color-primary: #007bff;     /* メインの青色 */
+  --color-success: #28a745;     /* 成功の緑色 */
+  --color-warning: #ffc107;     /* 警告の黄色 */
+  --color-danger: #dc3545;      /* 危険の赤色 */
+  --color-info: #17a2b8;        /* 情報の青緑色 */
+  --color-secondary: #6c757d;    /* サブの灰色 */
+  --color-special: #6f42c1;     /* 特別な紫色 */
+  
+  --color-text: #333;
+  --color-background: #f4f4f9;
+  --color-surface: #ffffff;      /* カードやコントロールパネルの背景 */
+
+  --border-radius-sm: 5px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+
+/* ==================================================
+   1. 基本スタイル (General Styles)
+   ================================================== */
 body {
   font-family: sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+  background-color: var(--color-background);
+  color: var(--color-text);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,9 +39,18 @@ body {
 }
 
 h1 {
-  color: #444;
+  color: #444; /* メインカラーと少し違うので、あえて変数を使わない */
 }
 
+/* 非表示にするためのクラス */
+.hidden {
+  display: none !important;
+}
+
+
+/* ==================================================
+   2. コントロールパネル (Control Panel)
+   ================================================== */
 .controls {
   margin-bottom: 20px;
   display: flex;
@@ -23,40 +59,63 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
-select, button {
+select {
   padding: 8px 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: var(--border-radius-sm);
   font-size: 14px;
   cursor: pointer;
 }
 
-.mode-group button {
-    background-color: #6c757d;
-    color: white;
+
+/* ==================================================
+   3. ボタン (Buttons)
+   ================================================== */
+/* 全ボタン共通のスタイル */
+button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  cursor: pointer;
+  color: white;
+  border: none;
 }
 
-#reset-btn {
-    background-color: #dc3545;
-}
+/* モードグループのボタン */
+.mode-group button { background-color: var(--color-secondary); }
+#reset-btn { background-color: var(--color-danger); }
+#shuffle-btn { background-color: var(--color-info); }
+#image-only-btn { background-color: var(--color-warning); }
+#gallery-btn { background-color: var(--color-special); }
+#gallery-view button { background-color: var(--color-primary); } /* ギャラリー内のボタン */
 
-.mode-group button#shuffle-btn {
-    background-color: #17a2b8; /* 少し違う色に */
-    color: white;
+/* アクションボタン（カード下） */
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
-
-/* ▼▼▼ 「画像ありのみ」ボタンのスタイルを追加 ▼▼▼ */
-.mode-group button#image-only-btn {
-    background-color: #fd7e14; /* オレンジ系の色 */
-    color: white;
+.action-buttons button {
+  min-width: 90px;
+  padding: 10px 15px;
+  font-weight: bold;
 }
+#mark-review-btn { background-color: var(--color-warning); }
+#mark-learned-btn { background-color: var(--color-success); }
+#prev-btn, #next-btn { background-color: var(--color-primary); }
 
-/* カードのスタイルは変更なし */
+
+/* ==================================================
+   4. 単語帳カード (Flashcard)
+   ================================================== */
 .card-container {
   perspective: 1500px;
   width: 90%;
@@ -68,10 +127,9 @@ select, button {
   width: 100%;
   height: 100%;
   position: relative;
-  transform-style: preserve-3d; /* ← これが正しい */
+  transform-style: preserve-3d;
   transition: transform 0.7s;
 }
-
 .card.is-flipped {
   transform: rotateY(180deg);
 }
@@ -81,7 +139,7 @@ select, button {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 12px;
+  border-radius: var(--border-radius-lg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,68 +147,75 @@ select, button {
   box-sizing: border-box;
   text-align: center;
   font-size: 18px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .card-front {
-  background: #ffffff;
+  background: var(--color-surface);
   border: 1px solid #ddd;
 }
 
 .card-back {
-  background: #f0f7ff;
+  background: #f0f7ff; /* これは特殊な色なのでそのまま */
   border: 1px solid #cce0ff;
   transform: rotateY(180deg);
-  /* Flexboxでテキストと画像を縦に並べる */
-  display: flex;
   flex-direction: column;
-  justify-content: space-around; /* 上下に均等配置 */
+  justify-content: space-around;
 }
 
-/* ▼▼▼ 画像のスタイルを追加 ▼▼▼ */
 #card-image {
-  max-width: 90%; /* カードの幅の90%を最大幅に */
-  max-height: 100px; /* 画像の高さを制限 */
-  border-radius: 4px;
-  object-fit: contain; /* アスペクト比を保つ */
-  display: none; /* 初期状態では非表示 */
+  max-width: 90%;
+  max-height: 100px;
+  border-radius: var(--border-radius-sm);
+  object-fit: contain;
+  display: none;
 }
-
 #card-image[src] {
-    display: block; /* src属性に値がある時だけ表示 */
+  display: block;
 }
 
-/* ▼▼▼ ボタンのスタイルを変更・追加 ▼▼▼ */
-.action-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
+
+/* ==================================================
+   5. ギャラリー (Gallery)
+   ================================================== */
+#gallery-view {
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
 }
 
-.action-buttons button {
-  min-width: 90px;
-  padding: 10px 15px;
+#gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.gallery-item {
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-md);
+  padding: 10px;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
+
+.gallery-item p {
+  margin: 0;
+  font-size: 14px;
   font-weight: bold;
-  border: none;
-  color: white;
-  border-radius: 5px;
+  color: var(--color-text);
 }
 
-#mark-review-btn {
-  background-color: #ffc107; /* 黄色 */
-}
 
-#mark-learned-btn {
-  background-color: #28a745; /* 緑 */
-}
-
-#prev-btn, #next-btn {
-  background-color: #007bff; /* 青 */
-}
-
-/* progressのスタイルは変更なし */
+/* ==================================================
+   6. その他 (Misc)
+   ================================================== */
 .progress {
   margin-top: 15px;
   color: #555;
@@ -177,16 +242,16 @@ select, button {
   height: 100px;
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: var(--border-radius-md);
   font-size: 14px;
   font-family: sans-serif;
-  resize: vertical; /* 縦方向のリサイズを許可 */
+  resize: vertical;
 }
 
 #memo-status {
   margin-top: 5px;
   font-size: 12px;
-  color: #007bff;
-  height: 15px; /* 高さを固定してレイアウトのガタつきを防ぐ */
+  color: var(--color-primary);
+  height: 15px;
   text-align: right;
 }

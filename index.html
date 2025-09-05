@@ -19,38 +19,47 @@
       </select>
     </div>
     <div class="mode-group">
-      <button id="image-only-btn">画像アリのみ</button>
+      <button id="gallery-btn">画像一覧</button>
+      <button id="image-only-btn">画像ありのみ</button>
       <button id="shuffle-btn">シャッフル</button>
       <button id="review-mode-btn">苦手だけ復習</button>
       <button id="reset-btn">進捗リセット</button>
     </div>
   </div>
 
-  <div class="card-container" id="card-container">
-    <div class="card" id="card">
-      <div class="card-face card-front" id="card-front">Loading...</div>
-      <div class="card-face card-back" id="card-back"></div>
-        <p id="card-back-text"></p>
-        <img id="card-image" src="" alt="関連画像">
+  <div id="flashcard-view">
+    <div class="card-container" id="card-container">
+      <div class="card" id="card">
+        <div class="card-face card-front" id="card-front">Loading...</div>
+        <div class="card-face card-back" id="card-back">
+          <p id="card-back-text"></p>
+          <img id="card-image" src="" alt="関連画像">
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button id="mark-review-btn">苦手</button>
+      <button id="prev-btn">← 前へ</button>
+      <button id="next-btn">次へ →</button>
+      <button id="mark-learned-btn">覚えた</button>
+    </div>
+    
+    <p class="progress" id="progress"></p>
+
+    <div class="memo-container">
+      <h2>メモ 📝</h2>
+      <textarea id="memo-textarea" placeholder="このカードに関するメモを自由に入力..."></textarea>
+      <div id="memo-status"></div>
     </div>
   </div>
 
-  <div class="action-buttons">
-    <button id="mark-review-btn">苦手</button>
-    <button id="prev-btn">← 前へ</button>
-    <button id="next-btn">次へ →</button>
-    <button id="mark-learned-btn">覚えた</button>
+  <div id="gallery-view" class="hidden">
+    <h2>画像ギャラリー 🖼️</h2>
+    <button id="back-to-flashcard-btn">単語帳に戻る</button>
+    <div id="gallery-grid"></div>
   </div>
   
-  <p class="progress" id="progress"></p>
-
-  <div class="memo-container">
-    <h2>メモ 📝</h2>
-    <textarea id="memo-textarea" placeholder="このカードに関するメモを自由に入力..."></textarea>
-    <div id="memo-status"></div>
-  </div>
-
-
   <script src="app.js"></script>
 </body>
 </html>
