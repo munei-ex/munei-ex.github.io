@@ -90,8 +90,17 @@ button {
   border: none;
 }
 
+/* モードグループ内のボタン配置を調整 */
+.mode-group {
+  display: flex;
+  flex-wrap: wrap; /* 折り返しを許可 */
+  gap: 10px;       /* 隙間を10pxに設定 */
+  justify-content: center; /* 中央揃え */
+}
+
 /* モードグループのボタン */
 .mode-group button { background-color: var(--color-secondary); }
+#review-due-btn { background-color: var(--color-success); }
 #reset-btn { background-color: var(--color-danger); }
 #shuffle-btn { background-color: var(--color-info); }
 #image-only-btn { background-color: var(--color-warning); }
@@ -102,19 +111,38 @@ button {
 .action-buttons {
   margin-top: 20px;
   display: flex;
+  align-items: center;
+  /* ↓ 左右の要素を端に、中央の要素をその間に配置する魔法のプロパティ */
+  justify-content: space-between; 
+  width: 100%; /* 親要素の幅いっぱいに広げる */
+  max-width: 400px; /* ただし最大幅はカードに合わせる */
+  box-sizing: border-box;
+  padding: 0 10px; /* 左右の端に少し余白を作る */
+}
+
+/* 中央のナビゲーショングループ */
+.nav-group {
+  display: flex;
   gap: 10px;
   justify-content: center;
   align-items: center;
 }
+
+/* アクションボタン共通のスタイル */
 .action-buttons button {
-  min-width: 90px;
+  min-width: 0; /* min-widthをリセットして柔軟にする */
   padding: 10px 15px;
   font-weight: bold;
 }
+
+/* ▼▼▼ 以下の個別スタイルは変更なし ▼▼▼ */
 #mark-review-btn { background-color: var(--color-warning); }
 #mark-learned-btn { background-color: var(--color-success); }
 #prev-btn, #next-btn { background-color: var(--color-primary); }
-
+#undo-btn {
+  background-color: var(--color-secondary);
+  min-width: auto;
+}
 
 /* ==================================================
    4. 単語帳カード (Flashcard)

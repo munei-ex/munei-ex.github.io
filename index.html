@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>薬理 暗記カード</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -19,6 +19,7 @@
       </select>
     </div>
     <div class="mode-group">
+      <button id="review-due-btn">今日復習する</button>
       <button id="gallery-btn">画像一覧</button>
       <button id="image-only-btn">画像ありのみ</button>
       <button id="shuffle-btn">シャッフル</button>
@@ -38,10 +39,12 @@
       </div>
     </div>
 
-    <div class="action-buttons">
+   <div class="action-buttons">
       <button id="mark-review-btn">苦手</button>
-      <button id="prev-btn">← 前へ</button>
-      <button id="next-btn">次へ →</button>
+      <div class="nav-group">
+        <button id="prev-btn">←</button>
+        <button id="undo-btn" class="hidden">取消</button> <button id="next-btn">→</button>
+      </div>
       <button id="mark-learned-btn">覚えた</button>
     </div>
     
