@@ -33,9 +33,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-bottom: 100px;
   min-height: 100vh;
   margin: 0;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -254,4 +255,29 @@ button {
   color: var(--color-primary);
   height: 15px;
   text-align: right;
+}
+
+/* ==================================================
+   7. プラスα表示 (Plus Alfa Display)
+   ================================================== */
+#plus-alfa-container {
+  margin-top: 20px;
+  width: 90%;
+  max-width: 400px;
+  padding: 15px;
+  border-radius: var(--border-radius-md);
+  background-color: #fffbe6; /* 薄い黄色 */
+  border: 1px solid #ffe58f;
+}
+
+#plus-alfa-container h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #c47d00;
+}
+
+#plus-alfa-container p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
 }

@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressText = document.getElementById('progress');
   const memoTextarea = document.getElementById('memo-textarea');
   const memoStatus = document.getElementById('memo-status');
+  const plusAlfaContainer = document.getElementById('plus-alfa-container'); // ← 追加
+  const plusAlfaText = document.getElementById('plus-alfa-text'); 
 
   // アプリの状態を管理する変数（中身が変わるのでlet）
   let fullDataset = [];
@@ -49,9 +51,27 @@ document.addEventListener('DOMContentLoaded', () => {
     filterAndShuffle('default');
   }
 
-  /** すべてのイベントリスナーを登録する */
+    /** すべてのイベントリスナーを登録する */
   function addEventListeners() {
-    card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+    // ▼▼▼ プラスαの表示ロジックをここに入れる ▼▼▼
+    card.addEventListener('click', () => {
+      // カードを裏返す
+      card.classList.toggle('is-flipped');
+      
+      // 現在のカードデータがなければ何もしない
+      if (currentCards.length === 0) return;
+      const cardData = currentCards[currentIndex];
+      
+      // もしカードが裏返っており、かつプラスα情報が存在する場合
+      if (card.classList.contains('is-flipped') && cardData.plusAlfa && cardData.plusAlfa.trim() !== '') {
+        plusAlfaText.textContent = cardData.plusAlfa;
+        plusAlfaContainer.classList.remove('hidden');
+      } else {
+        // それ以外の場合は隠す
+        plusAlfaContainer.classList.add('hidden');
+      }
+    });
+
     cardImage.onerror = () => { cardImage.style.display = 'none'; };
     
     document.getElementById('prev-btn').addEventListener('click', prevCard);
@@ -59,10 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('mark-learned-btn').addEventListener('click', () => markCard('learned'));
     document.getElementById('mark-review-btn').addEventListener('click', () => markCard('review'));
     
-    // カテゴリーフィルターが変更された時
     categoryFilter.addEventListener('change', () => filterAndShuffle('default'));
     
-    // 「苦手だけ復習」ボタンが押された時
     document.getElementById('review-mode-btn').addEventListener('click', () => {
       categoryFilter.value = 'all';
       filterAndShuffle('review');
@@ -96,8 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================================================
   // 4. UI更新系関数 (UI Updates)
   // ==================================================
+  /** 現在のカードを画面に表示する */
   function displayCard() {
     card.classList.remove('is-flipped');
+    plusAlfaContainer.classList.add('hidden'); 
     
     if (currentCards.length === 0) {
       cardFront.textContent = '対象のカードがありません';
@@ -112,14 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
     memoTextarea.disabled = false;
     const cardData = currentCards[currentIndex];
     
-    // ▼▼▼【修正点1】plusAlfaの内容を裏面に表示 ▼▼▼
-    let backContent = cardData.mechanism;
-    if (cardData.plusAlfa && cardData.plusAlfa.trim() !== '') {
-      backContent += `\n\n💡 +α:\n${cardData.plusAlfa}`;
-    }
+    // ▼▼▼ シンプルに薬品名と機序だけをセットする形に戻す ▼▼▼
     cardFront.textContent = cardData.drug;
-    cardBackText.textContent = backContent;
-    // ▲▲▲ ここまで ▲▲▲
+    cardBackText.textContent = cardData.mechanism;
 
     if (cardData.image && cardData.image.trim() !== '') {
       cardImage.src = `images/${cardData.image}`;
