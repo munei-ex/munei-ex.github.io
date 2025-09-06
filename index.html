@@ -12,12 +12,22 @@
   <h1>薬理 暗記カード 🧠</h1>
 
   <div class="controls">
+    <div class="search-container">
+      <input type="search" id="search-box" placeholder="薬品名、作用機序で検索...">
+    </div>
+    
     <div class="filter-group">
       <label for="category-filter">分野フィルター:</label>
       <select id="category-filter">
         <option value="all">すべて</option>
       </select>
     </div>
+
+    <div id="sub-filter-group" class="filter-group hidden">
+      <label for="tag-filter">タグで絞り込み:</label>
+      <select id="tag-filter"></select>
+    </div>
+
     <div class="mode-group">
       <button id="review-due-btn">今日復習する</button>
       <button id="gallery-btn">画像一覧</button>
@@ -25,6 +35,14 @@
       <button id="shuffle-btn">シャッフル</button>
       <button id="review-mode-btn">苦手だけ復習</button>
       <button id="reset-btn">進捗リセット</button>
+      
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-switch-checkbox">
+          <input type="checkbox" id="theme-switch-checkbox" />
+          <div class="slider round"></div>
+        </label>
+        <span class="theme-label">ダークモード</span>
+      </div>
     </div>
   </div>
 
@@ -33,36 +51,34 @@
       <div class="card" id="card">
         <div class="card-face card-front" id="card-front">Loading...</div>
         <div class="card-face card-back" id="card-back">
-          <p id="card-back-text"></p>
+          <div id="card-info-grid"></div>
           <img id="card-image" src="" alt="関連画像">
         </div>
       </div>
     </div>
 
-   <div class="action-buttons">
+    <div class="action-buttons">
       <button id="mark-review-btn">苦手</button>
       <div class="nav-group">
         <button id="prev-btn">←</button>
-        <button id="undo-btn" class="hidden">取消</button> <button id="next-btn">→</button>
+        <button id="undo-btn" class="hidden">取消</button>
+        <button id="next-btn">→</button>
       </div>
       <button id="mark-learned-btn">覚えた</button>
     </div>
     
     <p class="progress" id="progress"></p>
 
-
-
-    <div class="memo-container">
-      <h2>メモ 📝</h2>
-      <textarea id="memo-textarea" placeholder="このカードに関するメモを自由に入力..."></textarea>
-      <div id="memo-status"></div>
-    </div>
-        
     <div id="plus-alfa-container" class="hidden">
       <h3>💡 プラスα</h3>
       <p id="plus-alfa-text"></p>
     </div>
 
+    <div class="memo-container">
+      <h2>📝 メモ</h2>
+      <textarea id="memo-textarea" placeholder="このカードに関するメモを自由に入力..."></textarea>
+      <div id="memo-status"></div>
+    </div>
   </div>
 
   <div id="gallery-view" class="hidden">
