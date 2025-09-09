@@ -1,18 +1,6 @@
 [
   {
     "name": "アスピリン",
-    "category": "category",
-    "mechanism": "mechanism",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "plusAlfa"
-  },
-  {
-    "name": "ドブタミン",
     "category": "NSAIDs",
     "mechanism": "COX阻害 → プロスタグランジン合成抑制",
     "indication": "",
@@ -24,7 +12,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "プロプラノロール",
+    "name": "ドブタミン",
     "category": "循環器",
     "mechanism": "β1受容体刺激 → 心収縮力増強",
     "indication": "",
@@ -36,7 +24,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "アトロピン",
+    "name": "プロプラノロール",
     "category": "循環器",
     "mechanism": "非選択的β遮断 → 交感神経抑制",
     "indication": "",
@@ -48,7 +36,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ニフェジピン",
+    "name": "アトロピン",
     "category": "自律神経",
     "mechanism": "ムスカリン受容体遮断 → 副交感神経抑制",
     "indication": "",
@@ -60,7 +48,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "モルヒネ",
+    "name": "ニフェジピン",
     "category": "循環器",
     "mechanism": "Caチャネル遮断 → 血管平滑筋弛緩",
     "indication": "",
@@ -72,7 +60,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ジアゼパム",
+    "name": "モルヒネ",
     "category": "鎮痛薬",
     "mechanism": "μオピオイド受容体刺激 → 鎮痛",
     "indication": "",
@@ -84,7 +72,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ニトログリセリン",
+    "name": "ジアゼパム",
     "category": "向精神薬",
     "mechanism": "GABA-A受容体 Cl-チャネル開口促進",
     "indication": "",
@@ -96,7 +84,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "フロセミド",
+    "name": "ニトログリセリン",
     "category": "循環器",
     "mechanism": "NO遊離 → cGMP濃度上昇 → 血管拡張",
     "indication": "",
@@ -108,7 +96,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "リドカイン",
+    "name": "フロセミド",
     "category": "循環器",
     "mechanism": "Na-K-2Cl共輸送体阻害 (ループ利尿薬)",
     "indication": "",
@@ -120,7 +108,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "セルトラリン",
+    "name": "リドカイン",
     "category": "循環器",
     "mechanism": "Naチャネル遮断 (Ib群抗不整脈薬)",
     "indication": "",
@@ -132,7 +120,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "リスペリドン",
+    "name": "セルトラリン",
     "category": "向精神薬",
     "mechanism": "セロトニン再取り込み阻害 (SSRI)",
     "indication": "",
@@ -144,7 +132,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ペニシリンG",
+    "name": "リスペリドン",
     "category": "向精神薬",
     "mechanism": "ドパミンD2・セロトニン5-HT2A受容体遮断",
     "indication": "",
@@ -156,7 +144,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "シプロフロキサシン",
+    "name": "ペニシリンG",
     "category": "抗菌薬",
     "mechanism": "細胞壁合成阻害 (ペプチドグリカン)",
     "indication": "",
@@ -168,7 +156,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "インスリン",
+    "name": "シプロフロキサシン",
     "category": "抗菌薬",
     "mechanism": "DNAジャイレース阻害 (ニューキノロン系)",
     "indication": "",
@@ -180,7 +168,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "プラバスタチン",
+    "name": "インスリン",
     "category": "糖代謝",
     "mechanism": "インスリン受容体刺激 → 糖取り込み促進",
     "indication": "",
@@ -192,7 +180,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "シンバスタチン",
+    "name": "プラバスタチン",
     "category": "脂質異常症治療薬",
     "mechanism": "HMG-COa還元酵素阻害→SREBP-2核内以降→LDL受容体↑→LDL取り込み促進→LDL⇓",
     "indication": "",
@@ -204,7 +192,7 @@
     "plusAlfa": "①妊娠・授乳婦に禁忌②腸肝循環受けやすい③胆汁排泄"
   },
   {
-    "name": "フルバスタチン",
+    "name": "シンバスタチン",
     "category": "脂質異常症治療薬",
     "mechanism": "HMG-COa還元酵素阻害→SREBP-2核内以降→LDL受容体↑→LDL取り込み促進→LDL⇓",
     "indication": "",
@@ -214,6 +202,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "①HDL↑、夕食後"
+  },
+  {
+    "name": "フルバスタチン",
+    "category": "脂質異常症治療薬",
+    "mechanism": "HMG-COa還元酵素阻害→SREBP-2核内以降→LDL受容体↑→LDL取り込み促進→LDL⇓",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "①妊娠・授乳婦に禁忌②HDL上昇"
   },
   {
     "name": "アトルバスタチン",
@@ -237,7 +237,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①妊娠・授乳婦に禁忌②HDL上昇"
+    "plusAlfa": "①妊娠・授乳婦、シクロスポリン投与に禁忌②HDL上昇③エリスロマイシン併用禁忌"
   },
   {
     "name": "ロスバスタチン錠",
@@ -249,19 +249,19 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①妊娠・授乳婦、シクロスポリン投与に禁忌②HDL上昇③エリスロマイシン併用禁忌"
+    "plusAlfa": "①妊娠・授乳婦、シクロスポリン投与に禁忌②HDL上昇"
   },
   {
     "name": "コレスチラミン",
     "category": "脂質異常症治療薬",
-    "mechanism": "HMG-COa還元酵素阻害→SREBP-2核内以降→LDL受容体↑→LDL取り込み促進→LDL⇓",
+    "mechanism": "①胆汁酸と結合→LDL取り込み促進②HDL上昇",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①妊娠・授乳婦、シクロスポリン投与に禁忌②HDL上昇"
+    "plusAlfa": "陰イオン交換樹脂（ということは陽イオン）②ワルファリンを吸収（併用注意）"
   },
   {
     "name": "コレスチミド",
@@ -278,18 +278,6 @@
   {
     "name": "エゼチミブ",
     "category": "脂質異常症治療薬",
-    "mechanism": "①胆汁酸と結合→LDL取り込み促進②HDL上昇",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "陰イオン交換樹脂（ということは陽イオン）②ワルファリンを吸収（併用注意）"
-  },
-  {
-    "name": "ガンマオリザノール",
-    "category": "脂質異常症治療薬",
     "mechanism": "①コレステロールトランポーター阻害（NPC1L1)",
     "indication": "",
     "sideEffects": "",
@@ -300,7 +288,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "プロブコール",
+    "name": "ガンマオリザノール",
     "category": "脂質異常症治療薬",
     "mechanism": "コレステロール消化吸収抑制",
     "indication": "",
@@ -312,7 +300,7 @@
     "plusAlfa": "じつは、心身症の不安・緊張、抑うつにも使う"
   },
   {
-    "name": "エボロクマブ",
+    "name": "プロブコール",
     "category": "脂質異常症治療薬",
     "mechanism": "①LDLコレステロール酸化変性抑制②コレステロール異化排泄促進③HDL低下",
     "indication": "",
@@ -324,7 +312,7 @@
     "plusAlfa": "抗酸化作用有する"
   },
   {
-    "name": "ロミタピド",
+    "name": "エボロクマブ",
     "category": "脂質異常症治療薬",
     "mechanism": "①PCSK９抗体→PCSL９のLDL受容体結合抑制→LDLリサイクリング増加➡LDLコレステロール肝細胞取り込み増加➡LDL低下",
     "indication": "",
@@ -336,7 +324,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "クロフィブラート",
+    "name": "ロミタピド",
     "category": "脂質異常症治療薬",
     "mechanism": "①MTPに結合→アポBへのTGの転送を抑制→キロミクロン形成とVLDC形成抑制→LDL低下",
     "indication": "",
@@ -348,7 +336,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ベザフィブラート",
+    "name": "クロフィブラート",
     "category": "脂質異常症治療薬",
     "mechanism": "①PPARα活性化→LPL↑→C-3発現抑制→LPL活性化②β酸化促進→TG・VLDL⇓③A-1,2↑→HDL↑",
     "indication": "",
@@ -360,7 +348,7 @@
     "plusAlfa": "①妊娠・胆石症に禁忌"
   },
   {
-    "name": "フィノフィブラート",
+    "name": "ベザフィブラート",
     "category": "脂質異常症治療薬",
     "mechanism": "①PPARα活性化→LPL↑→C-3発現抑制→LPL活性化②β酸化促進→TG・VLDL⇓③A-1,2↑→HDL↑",
     "indication": "",
@@ -372,7 +360,7 @@
     "plusAlfa": "①妊娠・胆石症に禁忌②腎不全も禁忌"
   },
   {
-    "name": "ペマフィブラート",
+    "name": "フィノフィブラート",
     "category": "脂質異常症治療薬",
     "mechanism": "①PPARα活性化→LPL↑→C-3発現抑制→LPL活性化②β酸化促進→TG・VLDL⇓③A-1,2↑→HDL↑",
     "indication": "",
@@ -384,7 +372,7 @@
     "plusAlfa": "①妊娠に禁忌②光線過敏症"
   },
   {
-    "name": "ニコモール",
+    "name": "ペマフィブラート",
     "category": "脂質異常症治療薬",
     "mechanism": "①PPARα活性化→LPL↑→C-3発現抑制→LPL活性化②β酸化促進→TG・VLDL⇓③A-1,2↑→HDL↑",
     "indication": "",
@@ -396,7 +384,7 @@
     "plusAlfa": "①妊娠に禁忌②PPARα選択性高い"
   },
   {
-    "name": "イコサペント酸エチル（EPA）",
+    "name": "ニコモール",
     "category": "脂質異常症治療薬",
     "mechanism": "①ニコチン酸受容体に結合（脂肪組織）→cAMP↑→ホルモン感受性リパーゼ阻害→遊離脂肪酸動員抑制→遊離脂肪酸供給減少→TG生成抑制\n②LPL活性化→TG分解\n③HDL上昇",
     "indication": "",
@@ -408,7 +396,7 @@
     "plusAlfa": "レイノー症候群とかに使う。\n空腹時に使用で皮膚潮紅（血管拡張）の副作用\n禁忌：重要低血圧症"
   },
   {
-    "name": "ω-3脂肪酸エチル",
+    "name": "イコサペント酸エチル（EPA）",
     "category": "脂質異常症治療薬",
     "mechanism": "①SREBP-1cを抑制→TG⇓\n②LPL活性化→TG分解\nアラキドン酸代謝阻害→TXA２＆PGI2阻害→血小板凝集抑制＆末梢血管拡張\n\n",
     "indication": "",
@@ -420,7 +408,7 @@
     "plusAlfa": "①食直後に服用（空腹時吸収⇩）②手術7～10日前に中止"
   },
   {
-    "name": "コルチコレリン",
+    "name": "ω-3脂肪酸エチル",
     "category": "脂質異常症治療薬",
     "mechanism": "①CETP発言抑制→LDL低下＆HDL上昇→TG⇓、",
     "indication": "",
@@ -432,7 +420,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "プロチレリン",
+    "name": "コルチコレリン",
     "category": "内分泌",
     "mechanism": "ＣＲＨとして脳下垂体前葉ＡＣＴＨ分泌↑",
     "indication": "",
@@ -442,6 +430,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "ＣＲＨ→ＡＣＴＨ（脳下垂体前葉）→副腎皮質束状層→糖質コルチコイド↑"
+  },
+  {
+    "name": "プロチレリン",
+    "category": "内分泌",
+    "mechanism": "ＴＲＨとして脳下垂体ＴＳＨ，プロラクチン↑",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "ＴＲＨ→ＴＳＨ→甲状腺濾胞細胞→甲状腺ホルモン↑"
   },
   {
     "name": "タルチレリン",
@@ -458,18 +458,6 @@
   {
     "name": "ゴナトレリン",
     "category": "内分泌",
-    "mechanism": "ＴＲＨとして脳下垂体ＴＳＨ，プロラクチン↑",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "ＴＲＨ→ＴＳＨ→甲状腺濾胞細胞→甲状腺ホルモン↑"
-  },
-  {
-    "name": "リュープロレリン",
-    "category": "内分泌",
     "mechanism": "ＬＨ－ＲＨ→ＬＲ分泌↑",
     "indication": "",
     "sideEffects": "",
@@ -480,7 +468,7 @@
     "plusAlfa": "ＬＨ-RH→ＬＨ↑（脳下垂体）"
   },
   {
-    "name": "ゴセレリン",
+    "name": "リュープロレリン",
     "category": "内分泌",
     "mechanism": "GnRH反復投与➡ＧｎＲＨ持続刺激→脱感作（down-regulation)→ゴナトロピン＆性ホルモン⇩→（骨吸収促進）",
     "indication": "",
@@ -492,7 +480,7 @@
     "plusAlfa": "①乳酸ーグリコール共重合体（生体分解高分子）を使った徐放性懸濁剤（徐々に加水分解）\n②ほてり、抑うつ"
   },
   {
-    "name": "ブセレリン",
+    "name": "ゴセレリン",
     "category": "内分泌",
     "mechanism": "GnRH反復投与➡ＧｎＲＨ持続刺激→脱感作（down-regulation)→ゴナトロピン＆性ホルモン⇩→（骨吸収促進）",
     "indication": "",
@@ -504,7 +492,7 @@
     "plusAlfa": "ほてり、抑うつ"
   },
   {
-    "name": "テガレリクス",
+    "name": "ブセレリン",
     "category": "内分泌",
     "mechanism": "GnRH反復投与➡ＧｎＲＨ持続刺激→脱感作（down-regulation)→ゴナトロピン＆性ホルモン⇩",
     "indication": "",
@@ -516,7 +504,7 @@
     "plusAlfa": "点鼻薬（分子量でかすぎ＆すぐ加水分解のため）"
   },
   {
-    "name": "プラルモレリン",
+    "name": "テガレリクス",
     "category": "内分泌",
     "mechanism": "GnRH反復投与➡ＧｎＲＨ持続刺激→脱感作（down-regulation)→ゴナトロピン＆性ホルモン⇩",
     "indication": "",
@@ -528,7 +516,7 @@
     "plusAlfa": "flare up現象（GnRHアゴニスト初期投与のゴナトロピンが急に分布亢進すること）がおきない"
   },
   {
-    "name": "オクトレオチド",
+    "name": "プラルモレリン",
     "category": "内分泌",
     "mechanism": "ＧＨＲＰ→ＧＨＳ受容体に結合→ＧＳ分泌↑",
     "indication": "",
@@ -538,6 +526,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": ""
+  },
+  {
+    "name": "オクトレオチド",
+    "category": "内分泌",
+    "mechanism": "ソマトスタチン受容体（ＳＳＴＲ）に結合→ＧＨ・初夏間ホルモン分泌抑制",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "ＳＳＴＲ２・５に作用"
   },
   {
     "name": "ランレオチド",
@@ -561,22 +561,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "ＳＳＴＲ２・５に作用"
-  },
-  {
-    "name": "テトラコサクチド",
-    "category": "内分泌",
-    "mechanism": "ソマトスタチン受容体（ＳＳＴＲ）に結合→ＧＨ・初夏間ホルモン分泌抑制",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": ""
   },
   {
-    "name": "ソマトロピン",
+    "name": "テトラコサクチド",
     "category": "内分泌",
     "mechanism": "ＡＣＴＨ→糖質コルチコイド酸性↑",
     "indication": "",
@@ -588,7 +576,7 @@
     "plusAlfa": "ＣＲＨ（コルチコレリン）→ＡＣＴＨ（脳下垂体前葉）→副腎皮質束状層→糖質コルチコイド↑"
   },
   {
-    "name": "メカセルミン",
+    "name": "ソマトロピン",
     "category": "内分泌",
     "mechanism": "ＧＨ受容体に結合→成長促進・ＩＦＧ－1↑",
     "indication": "",
@@ -600,7 +588,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ペグミソマント",
+    "name": "メカセルミン",
     "category": "内分泌",
     "mechanism": "ソマトメジン受容体刺激→インスリン用作用・成長促進→血糖⇩",
     "indication": "",
@@ -612,7 +600,7 @@
     "plusAlfa": "禁忌；がん"
   },
   {
-    "name": "バソプレシン",
+    "name": "ペグミソマント",
     "category": "内分泌",
     "mechanism": "ＧＨ受容体拮抗→ＩＦＧ－１⇩",
     "indication": "",
@@ -624,7 +612,7 @@
     "plusAlfa": "ＧＨ受容体の二量体化の抑制"
   },
   {
-    "name": "デスモプレシン",
+    "name": "バソプレシン",
     "category": "内分泌",
     "mechanism": "Ｖ２受容体刺激→抗利尿作用\n大量投与➡血圧上昇・子宮収縮",
     "indication": "",
@@ -636,7 +624,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "チアマゾール",
+    "name": "デスモプレシン",
     "category": "内分泌",
     "mechanism": "Ｖ２受容体刺激→抗利尿作用\n",
     "indication": "",
@@ -646,6 +634,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "低Ｎａ血症"
+  },
+  {
+    "name": "チアマゾール",
+    "category": "内分泌",
+    "mechanism": "ペルオキシダーゼ阻害",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "①2か月間は2週に1回血液検査（無顆粒球症予防のため）\n②発熱など→投与中止"
   },
   {
     "name": "プリピルチオウラシル",
@@ -662,18 +662,6 @@
   {
     "name": "リオチロニン",
     "category": "内分泌",
-    "mechanism": "ペルオキシダーゼ阻害",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "①2か月間は2週に1回血液検査（無顆粒球症予防のため）\n②発熱など→投与中止"
-  },
-  {
-    "name": "レボチロキシン",
-    "category": "内分泌",
     "mechanism": "Ｔ３　製剤→甲状腺ホルモン結合→代謝亢進・β受容体↑",
     "indication": "",
     "sideEffects": "",
@@ -684,7 +672,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "シナカルセト",
+    "name": "レボチロキシン",
     "category": "内分泌",
     "mechanism": "Ｔ４製剤→甲状腺ホルモン受容体結合→代謝亢進・β受容体↑",
     "indication": "",
@@ -694,6 +682,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "スクラルファートと相互作用（Ａlと結合して吸収阻害）"
+  },
+  {
+    "name": "シナカルセト",
+    "category": "内分泌",
+    "mechanism": "カルシウム受容体刺激→パラトルモン分泌抑制",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
   },
   {
     "name": "エテルカルセチド",
@@ -710,14 +710,14 @@
   {
     "name": "ヒドロコルチゾン",
     "category": "内分泌",
-    "mechanism": "カルシウム受容体刺激→パラトルモン分泌抑制",
+    "mechanism": "糖質コルチコイド受容体と結合→抗炎症作用→免疫発現抑制",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "作用多い"
   },
   {
     "name": "コルチゾン",
@@ -765,22 +765,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "作用多い"
-  },
-  {
-    "name": "フルチカゾンプロピオン酸エステル",
-    "category": "内分泌",
-    "mechanism": "糖質コルチコイド受容体と結合→抗炎症作用→免疫発現抑制",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": ""
   },
   {
-    "name": "トリアムシノロン",
+    "name": "フルチカゾンプロピオン酸エステル",
     "category": "内分泌",
     "mechanism": "抗炎症、抗アレルギー、免疫抑制",
     "indication": "",
@@ -790,6 +778,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "喘息で使う"
+  },
+  {
+    "name": "トリアムシノロン",
+    "category": "内分泌",
+    "mechanism": "合成糖質コルチコイド",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
   },
   {
     "name": "メチルプレドニゾロン",
@@ -806,7 +806,7 @@
   {
     "name": "フルドロコルチゾン",
     "category": "内分泌",
-    "mechanism": "合成糖質コルチコイド",
+    "mechanism": "合成鉱質コルチコイド",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -818,18 +818,6 @@
   {
     "name": "メチラポン",
     "category": "内分泌",
-    "mechanism": "合成鉱質コルチコイド",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": ""
-  },
-  {
-    "name": "トリロスタン",
-    "category": "内分泌",
     "mechanism": "11βー水酸化酵素阻害→アルドステロン、ヒドロコルチゾン⇩→ＡＣＴＨ↑",
     "indication": "",
     "sideEffects": "",
@@ -840,7 +828,7 @@
     "plusAlfa": "クッシンク病でＡＣＴＨ↑"
   },
   {
-    "name": "アビラテロン",
+    "name": "トリロスタン",
     "category": "内分泌",
     "mechanism": "3β-ヒドロキシステロイド脱水素酵素阻害→アルドステロン・ヒドロコルチゾン⇩",
     "indication": "",
@@ -852,7 +840,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "テストステロンエナント酸エステル",
+    "name": "アビラテロン",
     "category": "内分泌",
     "mechanism": "17αー水酸化酵素＆Ｃ17,20リアーゼ阻害→テストステロン・アンドロステンジオン⇩",
     "indication": "",
@@ -864,7 +852,7 @@
     "plusAlfa": "去勢抵抗性がんに使用"
   },
   {
-    "name": "メテノロン酢酸エステル",
+    "name": "テストステロンエナント酸エステル",
     "category": "内分泌",
     "mechanism": "アンドロゲン受容体結合→男性化・蛋白質同化",
     "indication": "",
@@ -876,7 +864,7 @@
     "plusAlfa": "油性注射剤で筋注"
   },
   {
-    "name": "クロルマジノン酢酸エステル",
+    "name": "メテノロン酢酸エステル",
     "category": "内分泌",
     "mechanism": "アンドロゲン受容体結合→蛋白質同化",
     "indication": "",
@@ -888,7 +876,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "フルタミド",
+    "name": "クロルマジノン酢酸エステル",
     "category": "内分泌",
     "mechanism": "アンドロゲン受容体遮断✖→抗アンドロゲン作用",
     "indication": "",
@@ -898,6 +886,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "ステロイド骨格"
+  },
+  {
+    "name": "フルタミド",
+    "category": "内分泌",
+    "mechanism": "アンドロゲン受容体遮断✖→抗アンドロゲン作用",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "①肝障害\n②ステロイド骨格ではない"
   },
   {
     "name": "ビカルタミド",
@@ -926,18 +926,6 @@
   {
     "name": "フィナステリド",
     "category": "内分泌",
-    "mechanism": "アンドロゲン受容体遮断✖→抗アンドロゲン作用",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "①肝障害\n②ステロイド骨格ではない"
-  },
-  {
-    "name": "デュタステリド",
-    "category": "内分泌",
     "mechanism": "5-α還元酵素Ⅱ阻害✖→発毛",
     "indication": "",
     "sideEffects": "",
@@ -948,7 +936,7 @@
     "plusAlfa": "ステロイド骨格\n①→前立腺に多い\nⅡ→頭皮\n製品名「リアップ」"
   },
   {
-    "name": "エストラジオール",
+    "name": "デュタステリド",
     "category": "内分泌",
     "mechanism": "5-α還元酵素Ⅰ, Ⅱ阻害✖→発毛、前立腺縮小・肥大抑制",
     "indication": "",
@@ -960,7 +948,7 @@
     "plusAlfa": "ステロイド骨格"
   },
   {
-    "name": "エチニルエストラジオール",
+    "name": "エストラジオール",
     "category": "内分泌",
     "mechanism": "エストロゲン受容体結合→女性化、子宮内膜増殖、骨吸収抑制✖・カルシトニン分泌促進→骨吸収促進、",
     "indication": "",
@@ -972,7 +960,7 @@
     "plusAlfa": "静脈血栓塞栓症"
   },
   {
-    "name": "クロミフェン",
+    "name": "エチニルエストラジオール",
     "category": "内分泌",
     "mechanism": "エストロゲン受容体結合→テストステロン分泌抑制\n脳・睾丸のゴナトロピン作用抑制→テストステロン⇩",
     "indication": "",
@@ -984,7 +972,7 @@
     "plusAlfa": "エチニル基→肝代謝による安定性向上"
   },
   {
-    "name": "タモキシフェン",
+    "name": "クロミフェン",
     "category": "内分泌",
     "mechanism": "エストロゲン受容体遮断✖→Negative Feedback→GnRH↑→FSH・LH↑→卵巣刺激→排卵誘発",
     "indication": "",
@@ -996,7 +984,7 @@
     "plusAlfa": "①霧視\n②乳がん・子宮内膜がんに禁忌"
   },
   {
-    "name": "トレミフェン",
+    "name": "タモキシフェン",
     "category": "内分泌",
     "mechanism": "エストロゲン受容体遮断",
     "indication": "",
@@ -1006,6 +994,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "①妊婦禁忌\n②パロキセチン相互（CYP2D6）"
+  },
+  {
+    "name": "トレミフェン",
+    "category": "内分泌",
+    "mechanism": "エストロゲン受容体遮断",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
   },
   {
     "name": "フルベストラント",
@@ -1022,14 +1022,14 @@
   {
     "name": "アナストロゾール",
     "category": "内分泌",
-    "mechanism": "エストロゲン受容体遮断",
+    "mechanism": "アロマターゼ阻害（可逆）",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "非ステロイド"
   },
   {
     "name": "レトロゾール",
@@ -1046,18 +1046,6 @@
   {
     "name": "エキセメスタン",
     "category": "内分泌",
-    "mechanism": "アロマターゼ阻害（可逆）",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "非ステロイド"
-  },
-  {
-    "name": "プロゲステロン",
-    "category": "内分泌",
     "mechanism": "アロマターゼ阻害（不可逆）",
     "indication": "",
     "sideEffects": "",
@@ -1068,7 +1056,7 @@
     "plusAlfa": "ステロイド"
   },
   {
-    "name": "ノルエチステロン",
+    "name": "プロゲステロン",
     "category": "内分泌",
     "mechanism": "LH分泌抑制→流産・早産防止",
     "indication": "",
@@ -1080,7 +1068,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ジエノゲスト",
+    "name": "ノルエチステロン",
     "category": "内分泌",
     "mechanism": "ゴナドトロピン分泌抑制",
     "indication": "",
@@ -1092,7 +1080,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ダナゾール",
+    "name": "ジエノゲスト",
     "category": "内分泌",
     "mechanism": "プロゲステロン結合→卵巣機能抑制",
     "indication": "",
@@ -1104,7 +1092,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ベンジルペニシリン",
+    "name": "ダナゾール",
     "category": "内分泌",
     "mechanism": "ゲスタゲン受容体・アンドロゲン受容体結合→ゴナドトロピン分泌抑制",
     "indication": "",
@@ -1116,7 +1104,7 @@
     "plusAlfa": "禁忌：血栓症\n子宮内膜に直で作用して萎縮・壊死させる怖いやつ"
   },
   {
-    "name": "アンピシリン",
+    "name": "ベンジルペニシリン",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）",
     "indication": "",
@@ -1128,7 +1116,7 @@
     "plusAlfa": "梅毒、敗血症、髄膜炎、心内膜炎、溶連菌　で使用"
   },
   {
-    "name": "バカンピシリン",
+    "name": "アンピシリン",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）",
     "indication": "",
@@ -1140,7 +1128,7 @@
     "plusAlfa": "5％ブドウ糖液では力価低下のため×、（代わりに生食・ブドウ糖液溶解）"
   },
   {
-    "name": "アモキシシリン",
+    "name": "バカンピシリン",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）",
     "indication": "",
@@ -1152,7 +1140,7 @@
     "plusAlfa": "アンピシリンのプロドラッグ（脂溶性増加・吸収改善）"
   },
   {
-    "name": "ピロリ菌1次除菌の薬は？",
+    "name": "アモキシシリン",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）",
     "indication": "",
@@ -1164,7 +1152,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ピペラシリン",
+    "name": "ピロリ菌1次除菌の薬は？",
     "category": "病態",
     "mechanism": "プロトンポンプ阻害薬＋アモキシシリン＋クラリスロマイシン",
     "indication": "",
@@ -1176,7 +1164,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "セファゾリン",
+    "name": "ピペラシリン",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）",
     "indication": "",
@@ -1186,6 +1174,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "①メトトレキサートと相互作用（尿細管分泌阻害）\n②腎機能注意\n③アミノグリコシド系とアミノ基が結合→別経路投与"
+  },
+  {
+    "name": "セファゾリン",
+    "category": "抗菌薬",
+    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第一世代セフェム系→グラム陽性菌",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
   },
   {
     "name": "セファロチン",
@@ -1226,7 +1226,7 @@
   {
     "name": "セフォチアム",
     "category": "抗菌薬",
-    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第一世代セフェム系→グラム陽性菌",
+    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第二世代セフェム系",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -1253,7 +1253,7 @@
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第二世代セフェム系",
     "indication": "",
     "sideEffects": "",
-    "interaction": "",
+    "interaction": "アルコール（ジスルフィラム作用）",
     "importance": "medium",
     "frequency": 50,
     "image": "",
@@ -1277,7 +1277,7 @@
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第二世代セフェム系",
     "indication": "",
     "sideEffects": "",
-    "interaction": "アルコール（ジスルフィラム作用）",
+    "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
@@ -1286,14 +1286,14 @@
   {
     "name": "セフトリアキソン",
     "category": "抗菌薬",
-    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第二世代セフェム系",
+    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第3世代セフェム系→グラム陰性菌",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "Caと懸濁→輸液の配合注意"
   },
   {
     "name": "セフタジジム",
@@ -1305,7 +1305,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "Caと懸濁→輸液の配合注意"
+    "plusAlfa": ""
   },
   {
     "name": "セフィキシム",
@@ -1329,7 +1329,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "①尿・便が赤色に\n②鉄材とキレート形成"
   },
   {
     "name": "セフカペンピボキシル",
@@ -1341,7 +1341,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①尿・便が赤色に\n②鉄材とキレート形成"
+    "plusAlfa": "低カルニチン血症→低血糖"
   },
   {
     "name": "セフジトレンピボキシル",
@@ -1353,7 +1353,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "低カルニチン血症→低血糖"
+    "plusAlfa": ""
   },
   {
     "name": "ラタモキセフ",
@@ -1365,19 +1365,19 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "アルコール（ジスルフィラム作用）"
   },
   {
     "name": "セフェピム",
     "category": "抗菌薬",
-    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第3世代セフェム系→グラム陰性菌",
+    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第４世代セフェム系→緑膿菌、グラム陽性菌・陰性菌",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "アルコール（ジスルフィラム作用）"
+    "plusAlfa": ""
   },
   {
     "name": "セフォゾプラン",
@@ -1393,18 +1393,6 @@
   },
   {
     "name": "緑膿菌に使える抗菌薬（最低7個）",
-    "category": "抗菌薬",
-    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\n第４世代セフェム系→緑膿菌、グラム陽性菌・陰性菌",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": ""
-  },
-  {
-    "name": "クラブラン酸カリウム",
     "category": "病態",
     "mechanism": "アミノグリコシド系、キノロン系、セフタジジム、カルペニシリン、カルバペネム系、ピペラシリン、セフェピム",
     "indication": "",
@@ -1416,7 +1404,7 @@
     "plusAlfa": "ゴロ：甘すぎジジイの緑のカルピス"
   },
   {
-    "name": "タゾバクタム",
+    "name": "クラブラン酸カリウム",
     "category": "抗菌薬",
     "mechanism": "βラクタマーゼ阻害",
     "indication": "",
@@ -1428,7 +1416,7 @@
     "plusAlfa": "アモキシシリンとの合剤"
   },
   {
-    "name": "セフェム系抗生物質を阻害する酵素",
+    "name": "タゾバクタム",
     "category": "抗菌薬",
     "mechanism": "βラクタマーゼ・セファロスポリナーゼ阻害",
     "indication": "",
@@ -1440,7 +1428,7 @@
     "plusAlfa": "アモキシシリンとの合剤"
   },
   {
-    "name": "スルバクタム",
+    "name": "セフェム系抗生物質を阻害する酵素",
     "category": "抗菌薬",
     "mechanism": "セファロスポリナーゼ",
     "indication": "",
@@ -1452,7 +1440,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "スルタミシリン",
+    "name": "スルバクタム",
     "category": "抗菌薬",
     "mechanism": "βラクタマーゼ阻害",
     "indication": "",
@@ -1464,7 +1452,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "イミペネム",
+    "name": "スルタミシリン",
     "category": "抗菌薬",
     "mechanism": "スルバクタム＋アンピシリン（エステル結合）",
     "indication": "",
@@ -1476,9 +1464,21 @@
     "plusAlfa": ""
   },
   {
-    "name": "パニペネム",
+    "name": "イミペネム",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\nカルバペネム系\n②近位尿細管のDHP－1で不活化→腎毒性",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "パルプロ酸併用禁忌→パルプロ酸効かないから"
+  },
+  {
+    "name": "パニペネム",
+    "category": "抗菌薬",
+    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\nカルバペネム系→βラクタマーゼ抵抗性\n",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -1497,7 +1497,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "パルプロ酸併用禁忌→パルプロ酸効かないから"
+    "plusAlfa": "パルプロ酸併用禁忌→パルプロ酸効かないから\n②腎毒性軽減\n"
   },
   {
     "name": "ファロペネム",
@@ -1509,22 +1509,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "パルプロ酸併用禁忌→パルプロ酸効かないから\n②腎毒性軽減\n"
-  },
-  {
-    "name": "アズトレオナム",
-    "category": "抗菌薬",
-    "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\nカルバペネム系→βラクタマーゼ抵抗性\n",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": "パルプロ酸併用禁忌→パルプロ酸効かないから"
   },
   {
-    "name": "バンコマイシン",
+    "name": "アズトレオナム",
     "category": "抗菌薬",
     "mechanism": "ＰＢＰ結合→トランスペプチダーゼ阻害（細胞壁合成阻害）\nモノバクタム系→緑膿菌、グラム陰性菌\n",
     "indication": "",
@@ -1536,7 +1524,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "テイコプラニン",
+    "name": "バンコマイシン",
     "category": "抗菌薬",
     "mechanism": "ペンタペプチドC末端（D-AlaーD-Ala）結合→ペプチドグリカン合成阻害\nグリコペプチド系→MRSA",
     "indication": "",
@@ -1548,7 +1536,7 @@
     "plusAlfa": "①TDMはAUC\n②60分かけてdiv(Red Neck症候群避けるため）\n③腎排泄、消化吸収悪い→C.difficleに使用）\n④第8脳神経障害（耳）"
   },
   {
-    "name": "ホスホマイシン",
+    "name": "テイコプラニン",
     "category": "抗菌薬",
     "mechanism": "ペンタペプチドC末端（D-AlaーD-Ala）結合→ペプチドグリカン合成阻害\nグリコペプチド系→MRSA",
     "indication": "",
@@ -1560,7 +1548,7 @@
     "plusAlfa": "①TDMはAUC\n②30分かけてdiv(Red Neck症候群避けるため）\n③腎排泄、消化吸収悪い→C.difficleに使用）"
   },
   {
-    "name": "ストレプトマイシン",
+    "name": "ホスホマイシン",
     "category": "抗菌薬",
     "mechanism": "エノールピルビン酸トランスフェラーゼ（UDPサイクル）阻害→ペプチドグリカンのUDP-N-アセチルムラミン酸合成阻害→細胞壁合成阻害",
     "indication": "",
@@ -1572,7 +1560,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "カナマイシン",
+    "name": "ストレプトマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖",
     "indication": "",
@@ -1584,7 +1572,7 @@
     "plusAlfa": "第8脳神経障害（耳）"
   },
   {
-    "name": "トブラマイシン",
+    "name": "カナマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖\nアミノグリコシド系",
     "indication": "",
@@ -1596,7 +1584,7 @@
     "plusAlfa": "第8脳神経障害（耳）、腎障害\nアミノグリコシド系は大体「人の名前＋マイシン」"
   },
   {
-    "name": "フラジオマイシん",
+    "name": "トブラマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖\nアミノグリコシド系",
     "indication": "",
@@ -1608,7 +1596,7 @@
     "plusAlfa": "第8脳神経障害（耳）、腎障害（ＴＤＭ必須）\nアミノグリコシド系は大体「人の名前＋マイシン」\n③ピペラシリンとアミド形成→別経路で"
   },
   {
-    "name": "ゲンタマイシン",
+    "name": "フラジオマイシん",
     "category": "抗菌薬",
     "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖\nアミノグリコシド系",
     "indication": "",
@@ -1618,6 +1606,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "第8脳神経障害（耳）、腎障害"
+  },
+  {
+    "name": "ゲンタマイシン",
+    "category": "抗菌薬",
+    "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖\nアミノグリコシド系",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "第8脳神経障害（耳）、腎障害（ＴＤＭ必須）\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
   },
   {
     "name": "アミカシン",
@@ -1641,7 +1641,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "第8脳神経障害（耳）、腎障害（ＴＤＭ必須）\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
+    "plusAlfa": "①第8脳神経障害（耳）、腎障害（ＴＤＭ必須）\n②30分～2時間かけて点滴\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
   },
   {
     "name": "ジベカシン",
@@ -1653,7 +1653,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①第8脳神経障害（耳）、腎障害（ＴＤＭ必須）\n②30分～2時間かけて点滴\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
+    "plusAlfa": "第8脳神経障害（耳）、腎障害\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
   },
   {
     "name": "イセパマイシン",
@@ -1665,22 +1665,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "第8脳神経障害（耳）、腎障害\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
-  },
-  {
-    "name": "アミノグリコシド系の相互作用と副作用",
-    "category": "抗菌薬",
-    "mechanism": "リボソーム３０Ｓ阻害✖→たんぱく質合成阻害✖\nアミノグリコシド系",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": "第8脳神経障害（耳）、腎障害（\nアミノグリコシド系は大体「人の名前＋マイシン」\n"
   },
   {
-    "name": "クロラムフェニコール",
+    "name": "アミノグリコシド系の相互作用と副作用",
     "category": "病態",
     "mechanism": "相互作用：ループ利尿薬（腎臓・耳悪くなる）、筋弛緩薬（呼吸抑制）\n副作用：第8脳神経障害（耳）、腎障害",
     "indication": "",
@@ -1692,7 +1680,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "エリスロマイシン",
+    "name": "クロラムフェニコール",
     "category": "抗菌薬",
     "mechanism": "リボソーム50Ｓ阻害✖→たんぱく質合成阻害✖",
     "indication": "",
@@ -1704,7 +1692,7 @@
     "plusAlfa": "新生児禁忌（グレイ症候群）"
   },
   {
-    "name": "クラリスロマイシン",
+    "name": "エリスロマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム50Ｓ阻害✖→たんぱく質合成阻害✖\nマクロライド系→心室頻拍、ＱＴ延長、偽膜性腸炎を引き起こす",
     "indication": "",
@@ -1716,7 +1704,7 @@
     "plusAlfa": "①2時間以上かけて点滴\n②注射用水で溶解→ブドウ糖・生食で希釈\n③ピタバスタチンの血中濃度上昇（肝臓への取り込み阻害）"
   },
   {
-    "name": "ロキシスロマイシン",
+    "name": "クラリスロマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム50Ｓ阻害✖→たんぱく質合成阻害✖\nマクロライド系→心室頻拍、ＱＴ延長、偽膜性腸炎を引き起こす",
     "indication": "",
@@ -1728,7 +1716,7 @@
     "plusAlfa": "①ジゴキシンの血中濃度上昇（Ｐ－糖タンパク質阻害）\n②ＣＹＰ３Ａ阻害"
   },
   {
-    "name": "アジスロマイシン",
+    "name": "ロキシスロマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム50Ｓ阻害✖→たんぱく質合成阻害✖\nマクロライド系→心室頻拍、ＱＴ延長、偽膜性腸炎を引き起こす",
     "indication": "",
@@ -1740,7 +1728,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "スピラマイシン",
+    "name": "アジスロマイシン",
     "category": "抗菌薬",
     "mechanism": "リボソーム50Ｓ阻害✖→たんぱく質合成阻害✖\nマクロライド系→心室頻拍、ＱＴ延長、偽膜性腸炎を引き起こす",
     "indication": "",
@@ -1752,7 +1740,7 @@
     "plusAlfa": "①500ｍｇを1日3回経口投与7日間"
   },
   {
-    "name": "フィダキソマイシン",
+    "name": "スピラマイシン",
     "category": "抗菌薬",
     "mechanism": "たんぱく質合成阻害✖\nマクロライド系→心室頻拍、ＱＴ延長、偽膜性腸炎を引き起こす",
     "indication": "",
@@ -1764,9 +1752,21 @@
     "plusAlfa": ""
   },
   {
-    "name": "テトラサイクリン",
+    "name": "フィダキソマイシン",
     "category": "抗菌薬",
     "mechanism": "ＲＮＡポリメラーゼ阻害✖\n偽膜性大腸炎に使用",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
+  },
+  {
+    "name": "テトラサイクリン",
+    "category": "抗菌薬",
+    "mechanism": "リボソーム30Ｓ結合→タンパク質合成阻害\nテトラサイクリン系→Ｃａ、Ｍｇ，Ａｌ、Ｆｅとキレート→吸収低下",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -1785,7 +1785,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "歯に着色"
   },
   {
     "name": "ドキシサイクリン",
@@ -1797,7 +1797,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "歯に着色"
+    "plusAlfa": ""
   },
   {
     "name": "チゲサイクリン",
@@ -1814,7 +1814,7 @@
   {
     "name": "リンコマイシン",
     "category": "抗菌薬",
-    "mechanism": "リボソーム30Ｓ結合→タンパク質合成阻害\nテトラサイクリン系→Ｃａ、Ｍｇ，Ａｌ、Ｆｅとキレート→吸収低下",
+    "mechanism": "リボソーム50ｓ結合→ペプチジルトランスフェラーゼ阻害→タンパク質合成阻害\nリンコマイシン系→偽膜性大腸炎",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -1838,14 +1838,14 @@
   {
     "name": "リネゾリド",
     "category": "抗菌薬",
-    "mechanism": "リボソーム50ｓ結合→ペプチジルトランスフェラーゼ阻害→タンパク質合成阻害\nリンコマイシン系→偽膜性大腸炎",
+    "mechanism": "50Ｓサブユニット結合→70Ｓ翻訳開始複合体形成阻害→タンパク質合成阻害",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "ＶＲＥ，MRSAに適用"
   },
   {
     "name": "テジゾリドリン酸エステル",
@@ -1857,22 +1857,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "ＶＲＥ，MRSAに適用"
-  },
-  {
-    "name": "ポリミキシンＢ",
-    "category": "抗菌薬",
-    "mechanism": "50Ｓサブユニット結合→70Ｓ翻訳開始複合体形成阻害→タンパク質合成阻害",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": "MRSAに適用"
   },
   {
-    "name": "コレスチミン",
+    "name": "ポリミキシンＢ",
     "category": "抗菌薬",
     "mechanism": "細胞膜リン脂質と結合→細胞膜透過性↑→細胞膜機能障害",
     "indication": "",
@@ -1884,7 +1872,7 @@
     "plusAlfa": "グラム陰性桿菌に効く"
   },
   {
-    "name": "ダプトマイシン",
+    "name": "コレスチミン",
     "category": "抗菌薬",
     "mechanism": "細胞膜機能障害",
     "indication": "",
@@ -1896,7 +1884,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "スルファメトキサゾール",
+    "name": "ダプトマイシン",
     "category": "抗菌薬",
     "mechanism": "細胞膜機能障害（膜電位脱分極＆Ｋ流出）・ＤＮＡ・ＲＮＡ・蛋白質合成阻害",
     "indication": "",
@@ -1908,7 +1896,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "バクタ、バクタミニ、バクトラミン",
+    "name": "スルファメトキサゾール",
     "category": "抗菌薬",
     "mechanism": "ＰＡＢＡと競合拮抗→ジヒドロプテロインさん合成酵素阻害→ジヒドロ葉酸生合成阻害",
     "indication": "",
@@ -1920,7 +1908,7 @@
     "plusAlfa": "妊婦・新生児班禁忌（高ビリルビン血症、黄疸）"
   },
   {
-    "name": "ノルフロキサシン",
+    "name": "バクタ、バクタミニ、バクトラミン",
     "category": "抗菌薬",
     "mechanism": "スルファメトキサゾール＋トリメトプリム\nジヒドロ葉酸還元酵素阻害",
     "indication": "",
@@ -1932,7 +1920,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "オフロキサシン",
+    "name": "ノルフロキサシン",
     "category": "抗菌薬",
     "mechanism": "ＤＮＡジャイレース・トポイソメラーゼ阻害→核酸合成阻害\nニューキノロン系",
     "indication": "",
@@ -1942,6 +1930,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "禁忌：フルルビプロフェン（痙攣）、妊婦\nテオフィリン・Al,Mg,Fe→２ｈ～間隔開ける"
+  },
+  {
+    "name": "オフロキサシン",
+    "category": "抗菌薬",
+    "mechanism": "ＤＮＡジャイレース・トポイソメラーゼ阻害→核酸合成阻害\nニューキノロン系",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "①禁忌：妊婦\n②NSAIDｓ→痙攣誘発）"
   },
   {
     "name": "レボフロキサシン",
@@ -1965,7 +1965,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①禁忌：妊婦\n②NSAIDｓ→痙攣誘発）"
+    "plusAlfa": "禁忌：チザニジン、妊婦、小児\nテオフィリン相互作用（CYP1A2阻害）\n"
   },
   {
     "name": "ロメフロキサシン",
@@ -1977,7 +1977,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "禁忌：チザニジン、妊婦、小児\nテオフィリン相互作用（CYP1A2阻害）\n"
+    "plusAlfa": "禁忌：フルルビプロフェン（痙攣）、妊婦\nテオフィリン・Al,Mg,Fe→２ｈ～間隔開ける"
   },
   {
     "name": "トスフロキサシン",
@@ -1989,7 +1989,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "禁忌：フルルビプロフェン（痙攣）、妊婦\nテオフィリン・Al,Mg,Fe→２ｈ～間隔開ける"
+    "plusAlfa": "①禁忌：妊婦\n②NSAIDｓ→痙攣誘発）"
   },
   {
     "name": "ガチフロキサシン",
@@ -2001,7 +2001,7 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①禁忌：妊婦\n②NSAIDｓ→痙攣誘発）"
+    "plusAlfa": ""
   },
   {
     "name": "プルリフロキサシン",
@@ -2042,14 +2042,14 @@
   {
     "name": "イソニアジド",
     "category": "抗菌薬",
-    "mechanism": "ＤＮＡジャイレース・トポイソメラーゼ阻害→核酸合成阻害\nニューキノロン系",
+    "mechanism": "①ミコールさん合成阻害→細胞壁生合成阻害\n抗結核薬",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "①デンプンで賦形（乳糖で黄色へ）\n②肝障害"
   },
   {
     "name": "デラマニド",
@@ -2061,22 +2061,10 @@
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": "①デンプンで賦形（乳糖で黄色へ）\n②肝障害"
-  },
-  {
-    "name": "ピラシナミド",
-    "category": "抗菌薬",
-    "mechanism": "①ミコールさん合成阻害→細胞壁生合成阻害\n抗結核薬",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
     "plusAlfa": ""
   },
   {
-    "name": "リファンピシン",
+    "name": "ピラシナミド",
     "category": "抗菌薬",
     "mechanism": "抗結核薬\nイソニアジドとの併用",
     "indication": "",
@@ -2088,7 +2076,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "エタンブトール",
+    "name": "リファンピシン",
     "category": "抗菌薬",
     "mechanism": "①DNA依存性RNAポリメラーゼ阻害→拡散合成阻害\n②尿が赤色へ\n③肝機能障害\n抗結核薬",
     "indication": "",
@@ -2100,7 +2088,7 @@
     "plusAlfa": "CYP１A2阻害（テオフィリン、チザニジン）\nCYP３A4誘導"
   },
   {
-    "name": "アシクロビル",
+    "name": "エタンブトール",
     "category": "抗菌薬",
     "mechanism": "抗結核薬\n細胞壁合成・核酸合成阻害薬",
     "indication": "",
@@ -2110,6 +2098,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "視力障害"
+  },
+  {
+    "name": "アシクロビル",
+    "category": "抗ウイルス薬",
+    "mechanism": "抗ヘルペス薬（ＤＮＡポリメラーゼ阻害）\nチミジン酸キナーゼ（ウイルス）で1リン酸化→3リン酸化（宿主）→ＤＮＡポリメラーゼ阻害（dGTPと競合）",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": "腎機能考慮"
   },
   {
     "name": "バラシクロビル",
@@ -2138,18 +2138,6 @@
   {
     "name": "アメナメビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗ヘルペス薬（ＤＮＡポリメラーゼ阻害）\nチミジン酸キナーゼ（ウイルス）で1リン酸化→3リン酸化（宿主）→ＤＮＡポリメラーゼ阻害（dGTPと競合）",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "腎機能考慮"
-  },
-  {
-    "name": "ガンシクロビル",
-    "category": "抗ウイルス薬",
     "mechanism": "へリガーゼ・プライマーゼ複合体活性阻害",
     "indication": "",
     "sideEffects": "",
@@ -2160,7 +2148,7 @@
     "plusAlfa": "腎機能考えなくていい"
   },
   {
-    "name": "バルガンシクロビル",
+    "name": "ガンシクロビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗ヘルペス薬（ＤＮＡポリメラーゼ阻害）\nプロテインキナーゼ（ウイルス）で1リン酸化→3リン酸化（宿主）→ＤＮＡポリメラーゼ阻害",
     "indication": "",
@@ -2172,7 +2160,7 @@
     "plusAlfa": "副作用：骨髄抑制、精子作られない"
   },
   {
-    "name": "ビタラビン",
+    "name": "バルガンシクロビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗ヘルペス薬（ＤＮＡポリメラーゼ阻害）\nプロテインキナーゼ（ウイルス）で1リン酸化→3リン酸化（宿主）→ＤＮＡポリメラーゼ阻害",
     "indication": "",
@@ -2182,6 +2170,18 @@
     "frequency": 50,
     "image": "",
     "plusAlfa": "ガンシクロビル＋バリン\n→ＰＥＰＴ１で吸収↑"
+  },
+  {
+    "name": "ビタラビン",
+    "category": "抗ウイルス薬",
+    "mechanism": "ＤＮＡポリメラーゼ阻害\n抗ヘルペス",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
   },
   {
     "name": "ホルカルネット",
@@ -2198,19 +2198,19 @@
   {
     "name": "オセミタミビル",
     "category": "抗ウイルス薬",
-    "mechanism": "ＤＮＡポリメラーゼ阻害\n抗ヘルペス",
+    "mechanism": "抗インフルエンザ薬\nノイラミニダーゼ阻害\n③消化管吸収改善",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
     "importance": "medium",
     "frequency": 50,
     "image": "",
-    "plusAlfa": ""
+    "plusAlfa": "「ミビル」はインフル\n"
   },
   {
     "name": "ザナミビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗インフルエンザ薬\nノイラミニダーゼ阻害\n③消化管吸収改善",
+    "mechanism": "抗インフルエンザ薬\nノイラミニダーゼ阻害\n",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2246,18 +2246,6 @@
   {
     "name": "ファビピラビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗インフルエンザ薬\nノイラミニダーゼ阻害\n",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": "「ミビル」はインフル\n"
-  },
-  {
-    "name": "バロキサビル　マルボキシル",
-    "category": "抗ウイルス薬",
     "mechanism": "抗インフルエンザ薬\n細胞内で3リン酸化→ＲＮＡ依存性ＲＮＡポリメラーゼ阻害",
     "indication": "",
     "sideEffects": "",
@@ -2268,7 +2256,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "エンテカビル",
+    "name": "バロキサビル　マルボキシル",
     "category": "抗ウイルス薬",
     "mechanism": "抗インフルエンザ薬\nキャップ依存性エンドヌクレアーゼ阻害✖",
     "indication": "",
@@ -2280,7 +2268,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "インターフェロン　アルファ",
+    "name": "エンテカビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗Ｂ型肝炎\n細胞内リン酸化→ＤＮＡポリメラーゼ阻害",
     "indication": "",
@@ -2292,7 +2280,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "グレカプレビル",
+    "name": "インターフェロン　アルファ",
     "category": "抗ウイルス薬",
     "mechanism": "①ウイルス増殖抑制\n②免疫活性化\n副作用：間質性肺炎、鬱",
     "indication": "",
@@ -2304,7 +2292,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ソホスブビル",
+    "name": "グレカプレビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗C型肝炎\nＮＳ３/4Aプロテアーゼ阻害\n",
     "indication": "",
@@ -2316,7 +2304,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "リバビリン",
+    "name": "ソホスブビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗C型肝炎\nＮＳ５Bポリメラーゼ阻害\n②透析・腎機能障碍者は禁忌\n",
     "indication": "",
@@ -2328,7 +2316,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ジドブジン",
+    "name": "リバビリン",
     "category": "抗ウイルス薬",
     "mechanism": "抗C型肝炎\nNS５Bポリメラーゼ阻害\n②催奇形性\n③妊婦、腎機能障害患者✖",
     "indication": "",
@@ -2340,7 +2328,7 @@
     "plusAlfa": "避妊必須"
   },
   {
-    "name": "ラミブジン",
+    "name": "ジドブジン",
     "category": "抗ウイルス薬",
     "mechanism": "抗HIV治療薬\n3リン酸化→逆転写酵素阻害",
     "indication": "",
@@ -2352,7 +2340,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "アバカビル",
+    "name": "ラミブジン",
     "category": "抗ウイルス薬",
     "mechanism": "抗HIV薬\n3リン酸化→逆転写酵素阻害DNAポリメラーゼ阻害",
     "indication": "",
@@ -2364,9 +2352,21 @@
     "plusAlfa": ""
   },
   {
-    "name": "ネビラピン",
+    "name": "アバカビル",
     "category": "抗ウイルス薬",
     "mechanism": "抗HIV治療薬\n3リン酸化→逆転写酵素阻害",
+    "indication": "",
+    "sideEffects": "",
+    "interaction": "",
+    "importance": "medium",
+    "frequency": 50,
+    "image": "",
+    "plusAlfa": ""
+  },
+  {
+    "name": "ネビラピン",
+    "category": "抗ウイルス薬",
+    "mechanism": "抗HIV薬\n逆転写酵素阻害（疎水ポケットに直接結合）",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2390,7 +2390,7 @@
   {
     "name": "リトナビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗HIV薬\n逆転写酵素阻害（疎水ポケットに直接結合）",
+    "mechanism": "HIVプロテアーゼ阻害\n②CYP3Aも阻害",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2402,7 +2402,7 @@
   {
     "name": "ラルテグラビル",
     "category": "抗ウイルス薬",
-    "mechanism": "HIVプロテアーゼ阻害\n②CYP3Aも阻害",
+    "mechanism": "HIVインテグラーゼ阻害",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2414,7 +2414,7 @@
   {
     "name": "マラビロク",
     "category": "抗ウイルス薬",
-    "mechanism": "HIVインテグラーゼ阻害",
+    "mechanism": "抗HIV薬\nCCR５阻害薬",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2426,7 +2426,7 @@
   {
     "name": "レムデシビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗HIV薬\nCCR５阻害薬",
+    "mechanism": "抗コロナ薬（SARS-CoV-2)\nＳＡＲＳーＣＯＶー２増殖抑制→ＲＮＡ伸長停止",
     "indication": "",
     "sideEffects": "",
     "interaction": "",
@@ -2438,18 +2438,6 @@
   {
     "name": "モルヌピラビル",
     "category": "抗ウイルス薬",
-    "mechanism": "抗コロナ薬（SARS-CoV-2)\nＳＡＲＳーＣＯＶー２増殖抑制→ＲＮＡ伸長停止",
-    "indication": "",
-    "sideEffects": "",
-    "interaction": "",
-    "importance": "medium",
-    "frequency": 50,
-    "image": "",
-    "plusAlfa": ""
-  },
-  {
-    "name": "カシリビマブ・イムデビマブ",
-    "category": "抗ウイルス薬",
     "mechanism": "抗コロナ薬（SARS-CoV-2)\n①体内でＮＨＣ→3リン酸化（ＮＨＣーＴＰ）→ＲＮＡ依存性ＲＮＡポリメラーゼによりＲＮＡに取り込み",
     "indication": "",
     "sideEffects": "",
@@ -2460,7 +2448,7 @@
     "plusAlfa": "妊婦に禁忌"
   },
   {
-    "name": "ニルマトレルビル",
+    "name": "カシリビマブ・イムデビマブ",
     "category": "抗ウイルス薬",
     "mechanism": "抗コロナ薬（SARS-CoV-2)\nスパイク蛋白質への抗体\n",
     "indication": "",
@@ -2472,7 +2460,7 @@
     "plusAlfa": ""
   },
   {
-    "name": "ソトロマブ",
+    "name": "ニルマトレルビル",
     "category": "抗ウイルス薬",
     "mechanism": "\"抗コロナ薬（SARS-CoV-2)\nメインプロテアーゼ阻害、",
     "indication": "",
@@ -2484,7 +2472,7 @@
     "plusAlfa": "リトナビルと合剤\nリトナビルによるＣＹＰ３Ａ阻害で効果↑"
   },
   {
-    "name": "",
+    "name": "ソトロマブ",
     "category": "抗ウイルス薬",
     "mechanism": "抗コロナ薬（SARS-CoV-2)\nスパイク蛋白質への抗体\n",
     "indication": "",
