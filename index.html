@@ -1,92 +1,103 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>薬理 暗記カード</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薬理 暗記カード 🧠</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <h1>薬理 暗記カード 🧠</h1>
-
-  <div class="controls">
-    <div class="search-container">
-      <input type="search" id="search-box" placeholder="薬品名、作用機序で検索...">
-    </div>
-    
-    <div class="filter-group">
-      <label for="category-filter">分野フィルター:</label>
-      <select id="category-filter">
-        <option value="all">すべて</option>
-      </select>
-    </div>
-
-    <div id="sub-filter-group" class="filter-group hidden">
-      <label for="tag-filter">タグで絞り込み:</label>
-      <select id="tag-filter"></select>
-    </div>
-
-    <div class="mode-group">
-      <button id="review-due-btn">今日復習する</button>
-      <button id="gallery-btn">画像一覧</button>
-      <button id="image-only-btn">画像ありのみ</button>
-      <button id="shuffle-btn">シャッフル</button>
-      <button id="review-mode-btn">苦手だけ復習</button>
-      <button id="reset-btn">進捗リセット</button>
-      
-      <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="theme-switch-checkbox">
-          <input type="checkbox" id="theme-switch-checkbox" />
-          <div class="slider round"></div>
-        </label>
-        <span class="theme-label">ダークモード</span>
-      </div>
-    </div>
-  </div>
-
-  <div id="flashcard-view">
-    <div class="card-container" id="card-container">
-      <div class="card" id="card">
-        <div class="card-face card-front" id="card-front">Loading...</div>
-        <div class="card-face card-back" id="card-back">
-          <div id="card-info-grid"></div>
-          <img id="card-image" src="" alt="関連画像">
+    <div class="container">
+        <div class="header">
+            <h1>薬理 暗記カード 🧠</h1>
+            <p>効率的SRS学習システム</p>
         </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="totalCards">...</div>
+                <div class="stat-label">総カード数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="studiedToday">0</div>
+                <div class="stat-label">今日の学習</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="accuracy">0%</div>
+                <div class="stat-label">覚えた率</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="streak">0</div>
+                <div class="stat-label">連続日数</div>
+            </div>
+        </div>
+        
+        <div class="mode-selector">
+            <div class="mode-btn active" data-mode="mixed">混合学習</div>
+            <div class="mode-btn" data-mode="importance">重要度順</div>
+            <div class="mode-btn" data-mode="weak">弱点強化</div>
+            <div class="mode-btn" data-mode="quick">クイック復習</div>
+        </div>
+        
+        <div class="category-selector" id="categorySelector">
+            <select id="categorySelect">
+                <option value="">全てのカテゴリ</option>
+                </select>
+        </div>
+        
+        <div class="study-settings">
+            <div class="setting-row">
+                <label>学習時間設定:</label>
+                <select id="sessionTime">
+                    <option value="5">5分</option>
+                    <option value="10" selected>10分</option>
+                    <option value="15">15分</option>
+                    <option value="25">25分 (ポモドーロ)</option>
+                </select>
+            </div>
+            <div class="setting-row">
+                <label>マイクロラーニング:</label>
+                <input type="checkbox" id="microLearning" checked>
+            </div>
+            <div class="setting-row">
+                <label>音声読み上げ:</label>
+                <input type="checkbox" id="speechEnabled">
+            </div>
+        </div>
+        
+        <div class="timer" id="timer">残り時間: 10:00</div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+        
+    <div class="card">
+      <div class="badges-container">
+          <div class="category-badge" id="categoryBadge"></div>
+          <div class="importance-badge" id="importanceBadge"></div>
+      </div>
+      <div class="drug-name" id="drugName">データを読込中...</div>
+      <div class="drug-info" id="drugInfo" style="display: none;"></div>
+      
+      <div id="plusAlfaSection" class="plus-alfa-section" style="display: none;">
+          <h4>💡 ワンポイント</h4>
+          <div id="plusAlfaContent" class="plus-alfa-content"></div>
+      </div>
+
+      <div id="memoSection" class="memo-section" style="display: none;">
+          <h4>📝 自分用メモ</h4>
+          <textarea id="memoTextarea" class="memo-textarea" placeholder="この薬に関するメモを自由に入力..."></textarea>
       </div>
     </div>
-
-    <div class="action-buttons">
-      <button id="mark-review-btn">苦手</button>
-      <div class="nav-group">
-        <button id="prev-btn">←</button>
-        <button id="undo-btn" class="hidden">取消</button>
-        <button id="next-btn">→</button>
-      </div>
-      <button id="mark-learned-btn">覚えた</button>
-    </div>
-    
-    <p class="progress" id="progress"></p>
-
-    <div id="plus-alfa-container" class="hidden">
-      <h3>💡 プラスα</h3>
-      <p id="plus-alfa-text"></p>
+        
+        <div class="buttons">
+            <button class="btn btn-show" id="showBtn">答えを見る</button>
+            <button class="btn btn-again" id="againBtn" style="display: none;">もう一度 (1分)</button>
+            <button class="btn btn-hard" id="hardBtn" style="display: none;">難しい (6分)</button>
+            <button class="btn btn-easy" id="easyBtn" style="display: none;">簡単 (4日)</button>
+        </div>
     </div>
 
-    <div class="memo-container">
-      <h2>📝 メモ</h2>
-      <textarea id="memo-textarea" placeholder="このカードに関するメモを自由に入力..."></textarea>
-      <div id="memo-status"></div>
-    </div>
-  </div>
-
-  <div id="gallery-view" class="hidden">
-    <h2>画像ギャラリー 🖼️</h2>
-    <button id="back-to-flashcard-btn">単語帳に戻る</button>
-    <div id="gallery-grid"></div>
-  </div>
-  
-  <script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
