@@ -192,14 +192,22 @@ class PharmaFlashcardApp {
         
         const infoParts = [];
         const cardData = this.currentCard;
+        // ★★★ 禁忌(NG)を追加 ★★★
         const detailMap = {
-            mechanism: '作用機序', indication: '適応症',
-            sideEffects: '副作用', interactions: '相互作用'
+            mechanism: '作用機序',
+            indication: '適応症',
+            sideEffects: '副作用',
+            interactions: '相互作用',
+            ng: '禁忌' // ← 追加
         };
-        const displayKeys = this.settings.microLearning ? ['mechanism', 'indication'] : Object.keys(detailMap);
+        // microLearning時は禁忌も表示したい場合はここに 'ng' を追加
+        const displayKeys = this.settings.microLearning ? ['mechanism', 'indication', 'ng'] : Object.keys(detailMap);
 
         displayKeys.forEach(key => {
-            if (cardData[key]) {
+            // NG項目はjsonで "NG" というキーなので cardData.NG で取得
+            if (key === 'ng' && cardData.NG) {
+                infoParts.push(`<div class="detail-item"><div class="detail-label">${detailMap[key]}</div><div class="detail-content">${cardData.NG}</div></div>`);
+            } else if (cardData[key]) {
                 infoParts.push(`<div class="detail-item"><div class="detail-label">${detailMap[key]}</div><div class="detail-content">${cardData[key]}</div></div>`);
             }
         });
