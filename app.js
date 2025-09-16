@@ -1,54 +1,160 @@
+// 薬剤追加モーダルの表示・登録ロジック
+document.addEventListener('DOMContentLoaded', () => {
+    const addDrugBtn = document.getElementById('addDrugBtn');
+    const addDrugModal = document.getElementById('addDrugModal');
+    const addDrugClose = document.getElementById('addDrugClose');
+    const addDrugForm = document.getElementById('addDrugForm');
+    if (addDrugBtn && addDrugModal && addDrugClose && addDrugForm) {
+        addDrugBtn.addEventListener('click', () => {
+            addDrugModal.style.display = 'flex';
+        });
+        addDrugClose.addEventListener('click', () => {
+            addDrugModal.style.display = 'none';
+        });
+        addDrugModal.addEventListener('click', (e) => {
+            if (e.target === addDrugModal) addDrugModal.style.display = 'none';
+        });
+        addDrugForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('addDrugName').value.trim();
+            const category = document.getElementById('addDrugCategory').value.trim() || '未分類';
+            const importance = document.getElementById('addDrugImportance').value;
+            const mechanism = document.getElementById('addDrugMechanism').value.trim();
+            if (!name) return;
+            // 既存薬剤と重複チェック
+            let drugs = JSON.parse(localStorage.getItem('userDrugs') || '[]');
+            if (drugs.some(d => d.name === name)) {
+                alert('同名の薬剤が既に追加されています');
+                return;
+            }
+            const newDrug = {
+                name,
+                category,
+                importance,
+                mechanism: mechanism || '（作用機序未入力）'
+            };
+            drugs.push(newDrug);
+            localStorage.setItem('userDrugs', JSON.stringify(drugs));
+            // 画面にも即時反映
+            if (window.app) {
+                window.app.allDrugs.push(newDrug);
+                window.app.drugDatabase.push(newDrug);
+                window.app.loadNewCard();
+            }
+            addDrugModal.style.display = 'none';
+            addDrugForm.reset();
+        });
+    }
+});
+// 使い方モーダルの表示制御
+document.addEventListener('DOMContentLoaded', () => {
+    const howToBtn = document.getElementById('howToBtn');
+    const howToModal = document.getElementById('howToModal');
+    const howToClose = document.getElementById('howToClose');
+    if (howToBtn && howToModal && howToClose) {
+        howToBtn.addEventListener('click', () => {
+            howToModal.style.display = 'flex';
+        });
+        howToClose.addEventListener('click', () => {
+            howToModal.style.display = 'none';
+        });
+        howToModal.addEventListener('click', (e) => {
+            if (e.target === howToModal) howToModal.style.display = 'none';
+        });
+    }
+});
+    // 分野ごとの正答率を集計し、苦手TOP3分野を返す
+    function getWeakCategories(topN = 3) {
+        // カテゴリごとに正答数・試行数を集計
+        const categoryStats = {};
+        for (const card of this.allDrugs) {
+            const cat = card.category || '未分類';
+            if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, attempts: 0 };
+            const stats = this.getCardStats(card.name);
+            categoryStats[cat].correct += stats.correct || 0;
+            categoryStats[cat].attempts += stats.attempts || 0;
+        }
+        // 正答率を計算
+        const categoryRates = Object.entries(categoryStats).map(([cat, s]) => ({
+            category: cat,
+            accuracy: s.attempts > 0 ? Math.round((s.correct / s.attempts) * 100) : 0,
+            attempts: s.attempts
+        }));
+        // 試行数が一定以上のカテゴリのみを対象にし、正答率昇順でソート
+        const filtered = categoryRates.filter(c => c.attempts >= 3);
+        filtered.sort((a, b) => a.accuracy - b.accuracy);
+        return filtered.slice(0, topN);
+    }
 // アプリケーションクラス
 class PharmaFlashcardApp {
-    constructor() {
-        this.currentCard = null;
-        this.allDrugs = [];
-        this.drugDatabase = [];
-        this.studyMode = 'mixed';
-        this.sessionStartTime = Date.now();
-        this.sessionDuration = 10 * 60 * 1000;
-        this.isAnswerShown = false;
-
-        // ★★★ 変更点：localStorageから設定と統計を読み込む ★★★
-        const savedSettings = JSON.parse(localStorage.getItem('pharma_settings'));
-        this.settings = {
-            microLearning: savedSettings?.microLearning ?? true,
-            voiceEnabled: savedSettings?.voiceEnabled ?? false,
-            autoProgress: savedSettings?.autoProgress ?? false
-        };
-
-        const savedStats = JSON.parse(localStorage.getItem('pharma_stats'));
-        this.stats = {
-            todayStudied: savedStats?.todayStudied ?? 0,
-            correctAnswers: savedStats?.correctAnswers ?? 0,
-            totalAnswers: savedStats?.totalAnswers ?? 0,
-            streak: 0, // getStreakで計算
-            level: savedStats?.level ?? 1,
-            xp: savedStats?.xp ?? 0
-        };
+    // カードを1枚選んで表示する（最低限の実装）
+    loadNewCard() {
+        this.currentCard = this.selectCard();
+        this.updateCardDisplay();
+    }
+    // セッションタイマーのダミー実装（必要に応じて本実装可）
+    startTimer() {
+        // 必要に応じてタイマーUIや残り時間管理を実装
+        // 例: document.getElementById('timer').textContent = '残り時間: 10:00';
+    }
+    // 苦手分野TOP3をUIに表示
+    // (重複定義を削除しました)
+    // 分野ごとの正答率を集計し、苦手TOP3分野を返す
+    getWeakCategories(topN = 3) {
+        // 重要度ごとの重み
+        const importanceWeight = { high: 1.5, medium: 1.0, low: 0.7, 未分類: 1.0 };
+        // カテゴリごとに正答数・試行数・重み合計を集計
+        const categoryStats = {};
+        for (const card of this.allDrugs) {
+            const cat = card.category || '未分類';
+            const imp = card.importance || '未分類';
+            if (!categoryStats[cat]) categoryStats[cat] = { correct: 0, attempts: 0, weightedAttempts: 0, weightedCorrect: 0 };
+            const stats = this.getCardStats(card.name);
+            const w = importanceWeight[imp] || 1.0;
+            categoryStats[cat].correct += stats.correct || 0;
+            categoryStats[cat].attempts += stats.attempts || 0;
+            categoryStats[cat].weightedCorrect += (stats.correct || 0) * w;
+            categoryStats[cat].weightedAttempts += (stats.attempts || 0) * w;
+        }
+        // 重み付き正答率を計算
+        const categoryRates = Object.entries(categoryStats).map(([cat, s]) => ({
+            category: cat,
+            accuracy: s.weightedAttempts > 0 ? Math.round((s.weightedCorrect / s.weightedAttempts) * 100) : 0,
+            attempts: s.attempts
+        }));
+        // 試行数が一定以上のカテゴリのみを対象にし、重み付き正答率昇順でソート
+        const filtered = categoryRates.filter(c => c.attempts >= 3);
+        filtered.sort((a, b) => a.accuracy - b.accuracy);
+        return filtered.slice(0, topN);
     }
 
     async init() {
-        await this.loadDrugDatabase();
-        this.stats.streak = this.getStreak();
-        this.updateToggleUI(); // ★ UIに設定を反映
-        this.populateCategoryFilter();
-        this.setupEventListeners();
-        this.startTimer();
-        this.loadNewCard();
-        this.updateStats();
-        this.setupVoice();
+    await this.loadDrugDatabase();
+    this.stats.streak = this.getStreak();
+    this.updateToggleUI(); // ★ UIに設定を反映
+    this.populateCategoryFilter();
+    this.setupEventListeners();
+    this.startTimer();
+    this.loadNewCard();
+    this.updateStats();
+    this.updateWeakCategoriesUI();
+    this.updateProgressVisualUI();
+    this.setupVoice();
     }
 
     async loadDrugDatabase() {
         try {
-            const response = await fetch('drugs.json');
+            const response = await fetch('./drugs.json');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            this.allDrugs = await response.json();
+            const baseDrugs = await response.json();
+            // 追加薬剤をlocalStorageから取得し、結合
+            const userDrugs = JSON.parse(localStorage.getItem('userDrugs') || '[]');
+            this.allDrugs = Array.isArray(userDrugs) && userDrugs.length > 0 ? baseDrugs.concat(userDrugs) : baseDrugs;
             this.drugDatabase = [...this.allDrugs];
         } catch (error) {
             console.error("薬剤データベースの読み込みに失敗しました:", error);
             document.getElementById('drugName').textContent = "データ読込失敗";
+            alert("drugs.jsonの読み込みに失敗しました。\n" + error + "\n\nファイル名・配置・サーバー起動状況を確認してください。");
         }
     }
 
@@ -121,6 +227,7 @@ class PharmaFlashcardApp {
 
         // タップ/クリックで表裏切り替え（autoProgress時は無効化）
         this.tapLock = false;
+        this.suppressNextTap = false; // スワイプで進めた直後のタップ抑制用
         cardContainer.addEventListener('click', (e) => {
             if (
                 e.target.closest('#memoSection') ||
@@ -129,14 +236,23 @@ class PharmaFlashcardApp {
             ) return;
             if (this.settings.autoProgress) return;
             if (this.tapLock) return;
-            // 裏面表示中はタップで何もしない
-            if (this.isAnswerShown) return;
+            if (this.suppressNextTap) {
+                this.suppressNextTap = false;
+                return;
+            }
             this.tapLock = true;
-            setTimeout(() => { this.tapLock = false; }, 400);
-
+            this.tapLock = false;
             this.cancelAutoProgress();
-
-            this.showAnswer();
+            if (!this.isAnswerShown) {
+                this.showAnswer();
+            } else {
+                // 裏面タップ時は表面に戻す
+                this.isAnswerShown = false;
+                document.getElementById('drugDetails').classList.remove('show');
+                this.updateButtons();
+                document.getElementById('plusAlfaSection').style.display = 'none';
+                document.getElementById('memoSection').style.display = 'none';
+            }
         });
     }
 
@@ -162,58 +278,61 @@ class PharmaFlashcardApp {
         }
     }
 
-    startTimer() {
-        const updateTimer = () => {
-            const elapsed = Date.now() - this.sessionStartTime;
-            const remaining = Math.max(0, this.sessionDuration - elapsed);
-            const minutes = Math.floor(remaining / 60000);
-            const seconds = Math.floor((remaining % 60000) / 1000);
-            
-            document.getElementById('timer').textContent = `残り時間: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-            const progress = ((this.sessionDuration - remaining) / this.sessionDuration) * 100;
-            document.getElementById('progressBar').style.width = `${progress}%`;
-            
-            if (remaining > 0) {
-                setTimeout(updateTimer, 1000);
-            } else {
-                this.showFeedback('⏰', '学習時間が終了しました！\nお疲れさまでした。', 'success');
-            }
-        };
-        updateTimer();
-    }
-
-    // ★★★ loadNewCard関数を修正 ★★★
-    loadNewCard() {
-        this.currentCard = this.selectCard();
-        this.updateCardDisplay();
+    constructor() {
+        this.currentCard = null;
+        this.allDrugs = [];
+        this.drugDatabase = [];
+        this.studyMode = 'mixed';
+        this.sessionStartTime = Date.now();
+        this.sessionDuration = 10 * 60 * 1000;
         this.isAnswerShown = false;
-        this.updateButtons();
-        
-        // 自動進行モードのロジックをここに集約
-        if (this.settings.autoProgress && this.settings.voiceEnabled && this.currentCard) {
-            // 薬剤名を読み上げ、終わったら自動で答えを表示する
-            this.speak(this.currentCard.name, () => this.showAnswer());
-        } else if (this.settings.voiceEnabled && this.currentCard) {
-            // 通常の音声読み上げ
-            this.speak(this.currentCard.name);
-        }
+
+        // ★★★ 変更点：localStorageから設定と統計を読み込む ★★★
+        const savedSettings = JSON.parse(localStorage.getItem('pharma_settings'));
+        this.settings = {
+            microLearning: true,
+            voiceEnabled: false,
+            autoProgress: false,
+        };
+        if (savedSettings) Object.assign(this.settings, savedSettings);
+
+        const savedStats = JSON.parse(localStorage.getItem('pharma_stats'));
+        this.stats = {
+            todayStudied: 0,
+            correctAnswers: 0,
+            totalAnswers: 0,
+            streak: 1,
+            level: 1,
+            xp: 0,
+        };
+        if (savedStats) Object.assign(this.stats, savedStats);
+
+        // drugs.json読込時にuserDrugsを結合するため、ここではallDrugs初期化しない
     }
     
     selectCard() {
         let candidates = [...this.drugDatabase];
+        // SRS最適化: nextReviewが今より過去のカードを優先
+        const now = Date.now();
+        let dueCards = candidates.filter(card => {
+            const stats = this.getCardStats(card.name);
+            return !stats.nextReview || stats.nextReview <= now;
+        });
+        // studyModeごとの絞り込み
         switch (this.studyMode) {
             case 'weak':
-                candidates = candidates.filter(card => this.getCardStats(card.name).accuracy < 70);
+                dueCards = dueCards.filter(card => this.getCardStats(card.name).accuracy < 70);
                 break;
             case 'important':
-                candidates = candidates.filter(card => card.importance === 'high');
+                dueCards = dueCards.filter(card => card.importance === 'high');
                 break;
             case 'quick':
-                candidates = this.getRecentErrorCards();
+                dueCards = this.getRecentErrorCards();
                 break;
         }
-        if (candidates.length === 0) candidates = this.drugDatabase;
-        return this.weightedRandomSelect(candidates);
+        // 出題候補がなければ全カードから選ぶ
+        if (dueCards.length === 0) dueCards = candidates;
+        return this.weightedRandomSelect(dueCards);
     }
 
     weightedRandomSelect(cards) {
@@ -283,6 +402,11 @@ class PharmaFlashcardApp {
         memoSectionEl.style.display = 'none';
         
         detailsContainerEl.classList.remove('show');
+
+        this.isAnswerShown = false; // ← 状態をリセット
+        detailsContainerEl.classList.remove('show'); // ← UIもリセット
+        this.updateButtons(); // ← ボタンの表示もリセット
+        
     }
 
     showAnswer() {
@@ -295,9 +419,8 @@ class PharmaFlashcardApp {
         document.getElementById('memoSection').style.display = 'block';
 
         // ★★★ 自動進行ロジックを修正 ★★★
-        const nextAction = () => this.answerCard('good');
-
         if (this.settings.autoProgress) {
+            const nextAction = () => this.answerCard('good');
             if (this.settings.voiceEnabled && this.currentCard.mechanism) {
                 // 音声が有効なら、読み上げ完了後に次のカードへ
                 this.speak(this.currentCard.mechanism, nextAction);
@@ -321,17 +444,82 @@ class PharmaFlashcardApp {
 
     answerCard(difficulty) {
         if (!this.currentCard) return;
-        
         const isCorrect = difficulty === 'easy' || difficulty === 'good';
-        
         this.updateCardStats(this.currentCard.name, isCorrect);
         this.updateSessionStats(isCorrect);
         this.processSRS(this.currentCard.name, difficulty);
-        
         setTimeout(() => {
             this.loadNewCard();
             this.updateStats(); // ここでのstats更新も重要
+            this.updateWeakCategoriesUI();
+            this.updateProgressVisualUI();
         }, 300);
+    }
+
+    // モダンな全体進捗バー描画（ダーク対応）
+    updateProgressVisualUI() {
+        const total = this.allDrugs.length;
+        let correct = 0, attempts = 0;
+        for (const card of this.allDrugs) {
+            const stats = this.getCardStats(card.name);
+            correct += stats.correct || 0;
+            attempts += stats.attempts || 0;
+        }
+        const overall = attempts > 0 ? Math.round((correct / attempts) * 100) : 0;
+        const bar = document.getElementById('overallProgressBar');
+        const label = document.getElementById('overallProgressLabel');
+        if (bar && label) {
+            // アニメーションで幅をセット
+            bar.style.width = '0%';
+            setTimeout(() => {
+                bar.style.width = overall + '%';
+            }, 80);
+            label.textContent = `${overall}%（${correct} / ${attempts}）`;
+        }
+    }
+
+    // 苦手分野TOP3をアニメーション付きグラフでUI表示
+    updateWeakCategoriesUI() {
+        const panel = document.getElementById('weakCategoriesPanel');
+        const graph = document.getElementById('weakCategoriesGraph');
+        if (!panel || !graph) return;
+        const top3 = this.getWeakCategories();
+        graph.innerHTML = '';
+        if (top3.length === 0) {
+            panel.style.display = 'none';
+            return;
+        }
+        panel.style.display = 'block';
+        // 最大値でスケール
+        const maxAttempts = Math.max(...top3.map(c => c.attempts), 1);
+        for (const cat of top3) {
+            const row = document.createElement('div');
+            row.className = 'weak-bar-row';
+            // ラベル
+            const label = document.createElement('span');
+            label.className = 'weak-bar-label';
+            label.textContent = cat.category;
+            row.appendChild(label);
+            // バー
+            const bar = document.createElement('div');
+            bar.className = 'weak-bar';
+            const barInner = document.createElement('div');
+            barInner.className = 'weak-bar-inner';
+            // 最初は0%、後でアニメーション
+            barInner.style.width = '0%';
+            bar.appendChild(barInner);
+            row.appendChild(bar);
+            // 値
+            const value = document.createElement('span');
+            value.className = 'weak-bar-value';
+            value.textContent = `${cat.accuracy}%（${cat.attempts}問）`;
+            row.appendChild(value);
+            graph.appendChild(row);
+            // アニメーションで幅をセット
+            setTimeout(() => {
+                barInner.style.width = (cat.attempts / maxAttempts * 100) + '%';
+            }, 80);
+        }
     }
     
     updateSessionStats(isCorrect) {
@@ -594,8 +782,10 @@ class PharmaFlashcardApp {
         // スワイプしきい値を超えた場合のみ進める
         if (diffX > swipeThreshold) {
             this.answerCard('easy');
+            this.suppressNextTap = true;
         } else if (diffX < -swipeThreshold) {
             this.answerCard('again');
+            this.suppressNextTap = true;
         }
         // しきい値未満なら何もしない（clickイベントでのみ表裏切り替え）
         this.touchStartX = 0;

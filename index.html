@@ -9,8 +9,63 @@
 <body>
     <div class="app-container">
         <header class="header">
-            <h1>薬理 暗記カード 🧠</h1>
-            <p class="subtitle">AI搭載 高効率学習システム</p>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+                <div>
+                    <h1 style="margin-bottom:0;">薬理 暗記カード 🧠</h1>
+                    <p class="subtitle" style="margin-top:2px;">AI搭載 高効率学習システム</p>
+                </div>
+                <button id="addDrugBtn" class="btn btn-success" style="font-size:0.98em; padding:7px 16px; margin-left:10px;">薬剤追加</button>
+                <button id="howToBtn" class="btn btn-primary" style="font-size:0.98em; padding:7px 16px; margin-left:10px;">使い方</button>
+    <!-- 薬剤追加モーダル -->
+    <div id="addDrugModal" class="howto-modal" style="display:none;">
+        <div class="howto-modal-content">
+            <span id="addDrugClose" class="howto-close">&times;</span>
+            <h2>薬剤を追加</h2>
+            <form id="addDrugForm" autocomplete="off">
+                <div style="margin-bottom:10px;">
+                    <label>薬剤名 <input type="text" id="addDrugName" required style="width:70%;padding:4px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label>分野 <input type="text" id="addDrugCategory" placeholder="例: 抗菌薬" style="width:70%;padding:4px;"></label>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label>重要度
+                        <select id="addDrugImportance" style="padding:4px;">
+                            <option value="high">高</option>
+                            <option value="medium" selected>中</option>
+                            <option value="low">低</option>
+                        </select>
+                    </label>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label>メカニズム/説明 <input type="text" id="addDrugMechanism" style="width:70%;padding:4px;"></label>
+                </div>
+                <button type="submit" class="btn btn-success" style="width:100%;margin-top:8px;">追加</button>
+            </form>
+        </div>
+    </div>
+            </div>
+    <!-- 使い方・モード説明モーダル -->
+    <div id="howToModal" class="howto-modal" style="display:none;">
+        <div class="howto-modal-content">
+            <span id="howToClose" class="howto-close">&times;</span>
+            <h2>このサイトの使い方</h2>
+            <ul style="margin-bottom:1.2em;">
+                <li>カード表面をタップ：裏面（答え）を表示</li>
+                <li>裏面をタップ：表面に戻す</li>
+                <li>左右スワイプ：覚えた/もう一度</li>
+                <li>苦手分野・進捗は下部グラフで可視化</li>
+            </ul>
+            <h3>モードの使い分け</h3>
+            <ul>
+                <li><b>混合</b>：全カードからバランスよく出題</li>
+                <li><b>弱点</b>：苦手分野・正答率の低いカードを優先</li>
+                <li><b>重要</b>：重要度「高」のカードを優先</li>
+                <li><b>復習</b>：復習タイミングが来たカードのみ出題</li>
+            </ul>
+            <p style="margin-top:1.2em; color:#aaa; font-size:0.98em;">いつでも右上「使い方」ボタンから再確認できます。</p>
+        </div>
+    </div>
             <div class="filter-container">
                 <input type="search" id="searchInput" class="search-input" placeholder="薬剤名で検索...">
                 <select id="categoryFilter" class="category-filter">
@@ -19,14 +74,14 @@
             </div>
         </header>
 
-        <div class="stats-panel">
+    <div class="stats-panel">
             <div class="stat-item">
                 <div class="stat-number" id="totalStudied">0</div>
                 <div class="stat-label">今日の学習</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="accuracy">0%</div>
-                <div class="stat-label">正答率</div>
+                <div class="stat-label">覚えた率</div>
             </div>
             <div class="stat-item">
                 <div class="stat-number" id="streak">0</div>
@@ -36,6 +91,21 @@
                 <div class="stat-number" id="level">1</div>
                 <div class="stat-label">レベル</div>
             </div>
+        </div>
+        <!-- 進捗グラフエリア -->
+        <div class="progress-visual-panel" id="progressVisualPanel" style="margin: 10px 0; padding: 12px 12px 8px 12px;">
+            <strong>全体進捗</strong>
+            <div style="margin: 6px 0 10px 0;">
+                <div class="modern-progress-bg">
+                    <div id="overallProgressBar" class="modern-progress-bar"></div>
+                    <span id="overallProgressLabel" class="modern-progress-label"></span>
+                </div>
+            </div>
+        </div>
+        <!-- 苦手分野表示エリア -->
+        <div class="weak-categories-panel" id="weakCategoriesPanel">
+            <strong>苦手分野TOP3</strong>
+            <div id="weakCategoriesGraph"></div>
         </div>
 
         <div class="control-panel">
