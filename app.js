@@ -2,19 +2,36 @@
 class PharmaFlashcardApp {
     constructor() {
         this.currentCard = null;
-        this.allDrugs = []; // 全薬剤を保持
-        this.drugDatabase = []; // 現在の学習対象(フィルター後)を保持
+        this.allDrugs = [];
+        this.drugDatabase = [];
         this.studyMode = 'mixed';
         this.sessionStartTime = Date.now();
         this.sessionDuration = 10 * 60 * 1000;
-        this.settings = { microLearning: true, voiceEnabled: false, autoProgress: false };
-        this.stats = { todayStudied: 0, correctAnswers: 0, totalAnswers: 0, streak: 0, level: 1 };
         this.isAnswerShown = false;
+
+        // ★★★ 変更点：localStorageから設定と統計を読み込む ★★★
+        const savedSettings = JSON.parse(localStorage.getItem('pharma_settings'));
+        this.settings = {
+            microLearning: savedSettings?.microLearning ?? true,
+            voiceEnabled: savedSettings?.voiceEnabled ?? false,
+            autoProgress: savedSettings?.autoProgress ?? false
+        };
+
+        const savedStats = JSON.parse(localStorage.getItem('pharma_stats'));
+        this.stats = {
+            todayStudied: savedStats?.todayStudied ?? 0,
+            correctAnswers: savedStats?.correctAnswers ?? 0,
+            totalAnswers: savedStats?.totalAnswers ?? 0,
+            streak: 0, // getStreakで計算
+            level: savedStats?.level ?? 1,
+            xp: savedStats?.xp ?? 0
+        };
     }
 
     async init() {
         await this.loadDrugDatabase();
         this.stats.streak = this.getStreak();
+        this.updateToggleUI(); // ★ UIに設定を反映
         this.populateCategoryFilter();
         this.setupEventListeners();
         this.startTimer();
@@ -49,6 +66,13 @@ class PharmaFlashcardApp {
         });
     }
 
+    // ★★★ UIに設定の状態を反映させる関数を追加 ★★★
+    updateToggleUI() {
+        document.getElementById('microToggle').classList.toggle('active', this.settings.microLearning);
+        document.getElementById('voiceToggle').classList.toggle('active', this.settings.voiceEnabled);
+        document.getElementById('autoToggle').classList.toggle('active', this.settings.autoProgress);
+    }
+
     setupEventListeners() {
         document.querySelectorAll('.mode-tab').forEach(tab => {
             tab.addEventListener('click', (e) => {
@@ -79,6 +103,41 @@ class PharmaFlashcardApp {
         });
 
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+
+        // ▼▼▼ スワイプ・タップイベントの重複取得を避けるため、cardContainer取得は1回だけ ▼▼▼
+        const cardContainer = document.getElementById('cardContainer');
+
+        // スワイプイベント
+        ['touchstart', 'mousedown'].forEach(evt =>
+            cardContainer.addEventListener(evt, e => this.handleSwipeStart(e), { passive: true })
+        );
+        ['touchmove', 'mousemove'].forEach(evt =>
+            cardContainer.addEventListener(evt, e => this.handleSwipeMove(e), { passive: true })
+        );
+        ['touchend', 'mouseup'].forEach(evt =>
+            cardContainer.addEventListener(evt, e => this.handleSwipeEnd(e))
+        );
+        cardContainer.addEventListener('mouseleave', e => this.handleSwipeCancel(e));
+
+        // タップ/クリックで表裏切り替え（autoProgress時は無効化）
+        this.tapLock = false;
+        cardContainer.addEventListener('click', (e) => {
+            if (
+                e.target.closest('#memoSection') ||
+                e.target.closest('.button-container') ||
+                e.target.closest('button')
+            ) return;
+            if (this.settings.autoProgress) return;
+            if (this.tapLock) return;
+            // 裏面表示中はタップで何もしない
+            if (this.isAnswerShown) return;
+            this.tapLock = true;
+            setTimeout(() => { this.tapLock = false; }, 400);
+
+            this.cancelAutoProgress();
+
+            this.showAnswer();
+        });
     }
 
     filterDrugs(searchTerm, category) {
@@ -94,6 +153,9 @@ class PharmaFlashcardApp {
     toggleSetting(settingName, elementId) {
         this.settings[settingName] = !this.settings[settingName];
         document.getElementById(elementId).classList.toggle('active', this.settings[settingName]);
+        
+        // ★★★ 変更点：設定の変更をlocalStorageに保存 ★★★
+        localStorage.setItem('pharma_settings', JSON.stringify(this.settings));
         
         if (settingName === 'microLearning' && this.isAnswerShown) {
             this.updateCardDisplay();
@@ -224,27 +286,30 @@ class PharmaFlashcardApp {
     }
 
     showAnswer() {
-        if (!this.currentCard || this.isAnswerShown) return; // 既に表示済みの場合は何もしない
+        if (!this.currentCard || this.isAnswerShown) return;
         document.getElementById('drugDetails').classList.add('show');
         this.isAnswerShown = true;
         this.updateButtons();
 
         if (this.currentCard.plusAlfa) document.getElementById('plusAlfaSection').style.display = 'block';
         document.getElementById('memoSection').style.display = 'block';
-        
+
         // ★★★ 自動進行ロジックを修正 ★★★
         const nextAction = () => this.answerCard('good');
-        
+
         if (this.settings.autoProgress) {
             if (this.settings.voiceEnabled && this.currentCard.mechanism) {
                 // 音声が有効なら、読み上げ完了後に次のカードへ
                 this.speak(this.currentCard.mechanism, nextAction);
             } else {
                 // 音声が無効なら、2.5秒後に次のカードへ
-                setTimeout(nextAction, 2500);
+                // タイマーIDを保存しておく
+                this.autoProgressTimer = setTimeout(() => {
+                    this.autoProgressTimer = null;
+                    nextAction();
+                }, 2500);
             }
         } else if (this.settings.voiceEnabled) {
-            // 通常の答え読み上げ
             this.speak(this.currentCard.mechanism);
         }
     }
@@ -265,23 +330,28 @@ class PharmaFlashcardApp {
         
         setTimeout(() => {
             this.loadNewCard();
-            this.updateStats();
+            this.updateStats(); // ここでのstats更新も重要
         }, 300);
     }
-
-    showFeedback(icon, message) {
-        const container = document.getElementById('feedbackContainer');
-        document.getElementById('feedbackIcon').textContent = icon;
-        document.getElementById('feedbackMessage').textContent = message;
-        container.classList.add('show');
-        setTimeout(() => container.classList.remove('show'), 2000);
-    }
-
+    
     updateSessionStats(isCorrect) {
         this.stats.todayStudied++;
         this.stats.totalAnswers++;
-        if (isCorrect) this.stats.correctAnswers++;
-        this.stats.level = Math.floor(this.stats.todayStudied / 10) + 1;
+        if (isCorrect) {
+            this.stats.correctAnswers++;
+            this.stats.xp += 10;
+        } else {
+            this.stats.xp += 2;
+        }
+
+        const requiredXp = this.stats.level * 50;
+        if (this.stats.xp >= requiredXp) {
+            this.stats.level++;
+            this.stats.xp -= requiredXp;
+        }
+
+        // ★★★ 変更点：学習状況をlocalStorageに保存 ★★★
+        localStorage.setItem('pharma_stats', JSON.stringify(this.stats));
     }
 
     updateCardStats(drugName, isCorrect) {
@@ -342,18 +412,30 @@ class PharmaFlashcardApp {
         document.getElementById('streak').textContent = this.stats.streak;
     }
 
+    // ★★★ 変更点：統計情報と日付を1つのオブジェクトで管理 ★★★
     getStreak() {
         try {
-            const lastStudyDate = localStorage.getItem('lastStudyDate');
-            let streak = parseInt(localStorage.getItem('studyStreak') || '0');
+            const savedData = JSON.parse(localStorage.getItem('pharma_streak_data') || '{}');
+            let streak = savedData.streak || 0;
+            const lastStudyDate = savedData.lastStudyDate;
             const today = new Date().toDateString();
+
             if (lastStudyDate !== today) {
-                if (this.isYesterday(lastStudyDate)) streak++; else streak = 1;
-                localStorage.setItem('studyStreak', streak.toString());
-                localStorage.setItem('lastStudyDate', today);
+                if (this.isYesterday(lastStudyDate)) {
+                    streak++;
+                } else {
+                    streak = 1;
+                }
+                // 新しいデータを保存
+                localStorage.setItem('pharma_streak_data', JSON.stringify({ streak, lastStudyDate: today }));
+                // 今日の学習データをリセット
+                this.stats = { ...this.stats, todayStudied: 0, correctAnswers: 0, totalAnswers: 0 };
+                localStorage.setItem('pharma_stats', JSON.stringify(this.stats));
             }
             return streak;
-        } catch (e) { return 1; }
+        } catch (e) {
+            return 1;
+        }
     }
 
     isYesterday(dateString) {
@@ -413,6 +495,155 @@ class PharmaFlashcardApp {
     getImportanceText(importance) {
         const texts = { high: '高', medium: '中', low: '低' };
         return texts[importance] || '不明';
+    }
+
+    handleTouchStart(e) {
+        // メモ欄でのスワイプは無効化
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isAnswerShown) return; // 答えが表示されていなければスワイプしない
+        this.touchStartX = e.touches ? e.touches[0].clientX : e.clientX;
+        this.isSwiping = true;
+    }
+
+    handleTouchMove(e) {
+        // メモ欄でのスワイプは無効化
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isSwiping || !this.isAnswerShown) return;
+        this.touchCurrentX = e.touches ? e.touches[0].clientX : e.clientX;
+        const diffX = this.touchCurrentX - this.touchStartX;
+        const cardContainer = document.getElementById('cardContainer');
+
+        cardContainer.style.transform = `translateX(${diffX}px) rotate(${diffX / 20}deg)`;
+        
+        // 背景色のフィードバック
+        if (diffX > 20) cardContainer.classList.add('swiping-right');
+        else cardContainer.classList.remove('swiping-right');
+        
+        if (diffX < -20) cardContainer.classList.add('swiping-left');
+        else cardContainer.classList.remove('swiping-left');
+    }
+
+    handleTouchEnd(e) {
+        // メモ欄でのスワイプは無効化
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isSwiping || !this.isAnswerShown) return;
+        this.isSwiping = false;
+        
+        const diffX = this.touchCurrentX - this.touchStartX;
+        const cardContainer = document.getElementById('cardContainer');
+        
+        cardContainer.style.transform = ''; // 元の位置に戻す
+        cardContainer.classList.remove('swiping-left', 'swiping-right');
+
+        // スワイプ距離のしきい値
+        const swipeThreshold = 80;
+
+        if (diffX > swipeThreshold) {
+            // 右スワイプ -> 覚えた (easy)
+            this.answerCard('easy');
+        } else if (diffX < -swipeThreshold) {
+            // 左スワイプ -> 忘れた (again)
+            this.answerCard('again');
+        }
+        
+        // スタート位置をリセット
+        this.touchStartX = 0;
+        this.touchCurrentX = 0;
+    }
+
+    handleMouseLeave(e) {
+        // マウスがカード外に出たらスワイプをキャンセル
+        if (this.isSwiping) {
+            this.isSwiping = false;
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.style.transform = '';
+            cardContainer.classList.remove('swiping-left', 'swiping-right');
+            this.touchStartX = 0;
+            this.touchCurrentX = 0;
+        }
+    }
+
+    // ...（このsetupEventListeners定義全体を削除）...
+
+    // スワイプ系の処理をまとめて簡潔に
+    handleSwipeStart(e) {
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isAnswerShown) return;
+        this.touchStartX = e.touches ? e.touches[0].clientX : e.clientX;
+        this.isSwiping = true;
+    }
+    handleSwipeMove(e) {
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isSwiping || !this.isAnswerShown) return;
+        this.touchCurrentX = e.touches ? e.touches[0].clientX : e.clientX;
+        const diffX = this.touchCurrentX - this.touchStartX;
+        const cardContainer = document.getElementById('cardContainer');
+        cardContainer.style.transform = `translateX(${diffX}px) rotate(${diffX / 20}deg)`;
+        cardContainer.classList.toggle('swiping-right', diffX > 20);
+        cardContainer.classList.toggle('swiping-left', diffX < -20);
+    }
+    handleSwipeEnd(e) {
+        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+        if (!this.isSwiping || !this.isAnswerShown) return;
+        this.isSwiping = false;
+        const diffX = this.touchCurrentX - this.touchStartX;
+        const cardContainer = document.getElementById('cardContainer');
+        cardContainer.style.transform = '';
+        cardContainer.classList.remove('swiping-left', 'swiping-right');
+        const swipeThreshold = 80;
+        // スワイプしきい値を超えた場合のみ進める
+        if (diffX > swipeThreshold) {
+            this.answerCard('easy');
+        } else if (diffX < -swipeThreshold) {
+            this.answerCard('again');
+        }
+        // しきい値未満なら何もしない（clickイベントでのみ表裏切り替え）
+        this.touchStartX = 0;
+        this.touchCurrentX = 0;
+    }
+    handleSwipeCancel(e) {
+        if (this.isSwiping) {
+            this.isSwiping = false;
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.style.transform = '';
+            cardContainer.classList.remove('swiping-left', 'swiping-right');
+            this.touchStartX = 0;
+            this.touchCurrentX = 0;
+        }
+    }
+
+    // 自動進行や音声読み上げのキャンセルをまとめる
+    cancelAutoProgress() {
+        if (this.autoProgressTimer) {
+            clearTimeout(this.autoProgressTimer);
+            this.autoProgressTimer = null;
+        }
+        if (this.speechSynthesis && this.speechSynthesis.speaking) {
+            this.speechSynthesis.cancel();
+        }
+    }
+
+    showAnswer() {
+        if (!this.currentCard || this.isAnswerShown) return;
+        document.getElementById('drugDetails').classList.add('show');
+        this.isAnswerShown = true;
+        this.updateButtons();
+        if (this.currentCard.plusAlfa) document.getElementById('plusAlfaSection').style.display = 'block';
+        document.getElementById('memoSection').style.display = 'block';
+
+        const nextAction = () => this.answerCard('good');
+        if (this.settings.autoProgress) {
+            if (this.settings.voiceEnabled && this.currentCard.mechanism) {
+                this.speak(this.currentCard.mechanism, nextAction);
+            } else {
+                this.autoProgressTimer = setTimeout(() => {
+                    this.autoProgressTimer = null;
+                    nextAction();
+                }, 2500);
+            }
+        } else if (this.settings.voiceEnabled) {
+            this.speak(this.currentCard.mechanism);
+        }
     }
 }
 

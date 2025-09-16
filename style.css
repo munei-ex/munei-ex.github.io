@@ -56,6 +56,46 @@ body {
     font-size: 0.9em;
 }
 
+.filter-container {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px 0;
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-input, .category-filter {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-input:focus, .category-filter:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.search-input {
+    flex: 2;
+}
+
+.category-filter {
+    flex: 1;
+}
+
+.category-filter option {
+    color: #333;
+    background-color: #fff;
+}
+
 /* 統計パネル */
 .stats-panel {
     display: grid;
@@ -207,41 +247,40 @@ body {
 
 /* カード表示エリア */
 .card-container {
-    padding: 25px;
     min-height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
     background: var(--white);
+    touch-action: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .card-content {
     padding: 20px;
-    position: relative; /* 子要素の絶対配置の基準にする */
-    min-height: 250px; /* カードの最小高さを確保（コンテンツに応じて調整） */
-    display: flex; /* flexboxを使って内部要素の配置を調整 */
-    flex-direction: column; /* 要素を縦に並べる */
-    align-items: flex-start; /* 左寄せ */
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .importance-badge {
-    position: absolute; /* 親要素 .card-content を基準に絶対配置 */
-    top: 20px;       /* 上からの距離 */
-    right: 20px;     /* 右からの距離 */
+    position: absolute;
+    top: 20px;
+    right: 20px;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 0.8em;
     font-weight: bold;
     color: white;
-    z-index: 10; /* 他の要素より手前に表示 */
+    z-index: 10;
 }
 
-/* 薬剤名とカテゴリをまとめたコンテナのスタイル */
+.badge-high { background: var(--danger-color); }
+.badge-medium { background: var(--warning-color); }
+.badge-low { background: var(--success-color); }
+
 .card-header-info {
-    margin-bottom: 15px; /* 下にスペース */
-    width: calc(100% - 0px); /* バッジの幅を考慮して薬剤名の幅を制限 */
-    /* バッジが右にあるため、薬剤名の表示領域を確保 */
+    margin-bottom: 15px;
+    width: calc(100% - 80px);
 }
 
 .drug-name {
@@ -252,73 +291,18 @@ body {
     color: var(--dark-color);
 }
 
-
-
 .category-tag {
     display: inline-block;
     padding: 4px 8px;
-    background-color: var(--light-bg); /* 背景を少し暗く */
+    background-color: var(--light-bg);
     color: #888;
     border-radius: 4px;
     font-size: 0.8em;
-    margin-top: 5px; /* 薬剤名との間隔 */
-}
-
-.importance-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8em;
-    font-weight: 600;
-    color: white;
-}
-
-.badge-high { background: var(--danger-color); }
-.badge-medium { background: var(--warning-color); }
-.badge-low { background: var(--success-color); }
-
-.card-content {
-    text-align: center;
-}
-
-.drug-name {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--dark-color);
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.drug-name::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 2px;
-}
-
-.category-tag {
-    display: inline-block;
-    background: var(--light-bg);
-    color: var(--primary-color);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: 600;
-    margin-bottom: 20px;
+    margin-top: 5px;
 }
 
 .drug-details {
-    background: var(--light-bg);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    margin: 20px 0;
+    width: 100%;
     opacity: 0;
     transform: translateY(20px);
     transition: var(--transition);
@@ -349,10 +333,58 @@ body {
     line-height: 1.5;
 }
 
+.plus-alfa-section, .memo-section {
+    width: 100%;
+}
+
+.memo-section {
+    margin: 20px 0 0;
+    background: #f9f9fa;
+    border: 1px solid #eef2f5;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    text-align: left;
+    overflow: hidden;
+}
+
+.memo-section h4 {
+    margin: 0;
+    padding: 10px 15px;
+    background: #f1f1f5;
+    border-bottom: 1px solid #eef2f5;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.memo-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 15px;
+    border: none;
+    background: transparent;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.95em;
+    outline: none;
+    color: var(--dark-color);
+}
+
+.card-container.swiping-right {
+    transform: translateX(30px) rotate(5deg);
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.card-container.swiping-left {
+    transform: translateX(-30px) rotate(-5deg);
+    background-color: rgba(244, 67, 54, 0.1);
+}
+
+
 /* ボタンエリア */
 .button-container {
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
     background: var(--light-bg);
+    margin-top: 0;
 }
 
 .button-group {
@@ -391,25 +423,10 @@ body {
     height: 200px;
 }
 
-.btn-primary {
-    background: var(--primary-color);
-    color: white;
-}
-
-.btn-success {
-    background: var(--success-color);
-    color: white;
-}
-
-.btn-warning {
-    background: var(--warning-color);
-    color: white;
-}
-
-.btn-danger {
-    background: var(--danger-color);
-    color: white;
-}
+.btn-primary { background: var(--primary-color); color: white; }
+.btn-success { background: var(--success-color); color: white; }
+.btn-warning { background: var(--warning-color); color: white; }
+.btn-danger { background: var(--danger-color); color: white; }
 
 .btn:hover {
     transform: translateY(-2px);
@@ -455,213 +472,133 @@ body {
     margin-bottom: 20px;
 }
 
-/* レスポンシブ */
-@media (max-width: 480px) {
-    .stats-panel {
-        grid-template-columns: repeat(2, 1fr);
+/* ワンポイント枠の強調 */
+.plus-alfa-section {
+    border: 2px solid #4caf50;
+    background: #f6fff7;
+    border-radius: 10px;
+    padding: 16px 18px 12px 18px;
+    margin: 18px 0 0 0;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.08);
+    position: relative;
+}
+
+.plus-alfa-section h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #388e3c;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.plus-alfa-content {
+    font-size: 1em;
+    color: #222;
+    line-height: 1.7;
+    padding-left: 0.5em;
+}
+
+/* スワイプガイド */
+.swipe-guide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7em;
+    margin: 8px 0 0 0;
+    font-size: 0.98em;
+    color: #388e3c;
+    background: #f6fff7;
+    border: 1.5px solid #b2dfdb;
+    border-radius: 18px;
+    padding: 7px 14px;
+    box-shadow: 0 1px 6px rgba(76,175,80,0.06);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    user-select: none;
+}
+
+.swipe-arrow {
+    font-weight: bold;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+
+.swipe-left { color: #f44336; }
+.swipe-right { color: #4caf50; }
+.swipe-separator {
+    color: #bbb;
+    font-size: 1.1em;
+    margin: 0 0.3em;
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --white: #2a2a2e;
+        --light-bg: #1e1e21;
+        --dark-color: #f0f0f0;
+        --primary-color: #5db9ff;
+        --border-color: #444;
     }
 
-    .stat-item:nth-child(2n) {
-        border-right: none;
+    .app-container, .btn { color: var(--dark-color); }
+    .header { color: #fff; }
+    .stats-panel, .stat-item, .control-panel { border-color: var(--border-color); }
+    .stat-label { color: #aaa; }
+    .stat-number { color: var(--primary-color); }
+    .mode-tabs { background: #111; }
+    .mode-tab { color: #aaa; }
+    .mode-tab.active { background: var(--light-bg); color: var(--primary-color); }
+    .toggle-switch { background: #555; }
+    .category-tag { background: #333; color: var(--primary-color); border: 1px solid var(--border-color); }
+    .detail-label { color: var(--primary-color); }
+    .button-container { background: var(--light-bg); }
+    .feedback-container { background: var(--light-bg); color: var(--dark-color); border: 1px solid var(--border-color); }
+    .memo-section { background: #3a3a3e; border-color: #555; }
+    .memo-section h4 { background: #444448; border-bottom-color: #555; color: #ccc; }
+    .memo-textarea { background: transparent; color: var(--dark-color); }
+
+    /* ワンポイント枠のダークモード調整 */
+    .plus-alfa-section {
+        border: 2px solid #388e3c;
+        background: #26332a;
+        color: #d0ffd6;
+        box-shadow: 0 2px 8px rgba(56,142,60,0.10);
+    }
+    .plus-alfa-section h4 {
+        color: #7be495;
+    }
+    .plus-alfa-content {
+        color: #e0ffe7;
     }
 
-    .stat-item:nth-child(2) {
-        border-bottom: 1px solid #e0e0e0;
+    .swipe-guide {
+        background: #26332a;
+        border-color: #388e3c;
+        color: #b9ffcb;
+        box-shadow: 0 1px 6px rgba(56,142,60,0.10);
     }
-
-    .button-group {
-        flex-direction: column;
-    }
-
-    .drug-name {
-        font-size: 1.6em;
-    }
+    .swipe-left { color: #ff8a80; }
+    .swipe-right { color: #7be495; }
+    .swipe-separator { color: #444; }
 }
 
 /* アニメーション */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .card-container {
     animation: fadeInUp 0.5s ease;
 }
 
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* 変数をダークモード用に再定義 */
-        --white: #2a2a2e;      /* 背景色を濃いグレーに */
-        --light-bg: #1e1e21;  /* さらに濃いグレーに */
-        --dark-color: #f0f0f0;  /* 文字色を明るいグレー（白に近い色）に */
-        --primary-color: #5db9ff; /* 明るい青 */
-        --border-color: #444; /* 境界線の色 */
-    }
-
-    /* アプリ全体の基本文字色を設定 */
-    .app-container, .btn {
-        color: var(--dark-color);
-    }
-    
-    /* ヘッダーの文字色を調整 */
-    .header {
-        color: #fff;
-    }
-
-    /* 統計パネルの境界線と文字色 */
-    .stats-panel, .stat-item, .control-panel {
-        border-color: var(--border-color);
-    }
-    .stat-label {
-        color: #aaa; /* ラベルの文字を少し暗めのグレーに */
-    }
-    .stat-number {
-        color: var(--primary-color);
-    }
-    
-    /* モードタブの文字色と背景 */
-    .mode-tabs {
-        background: #111;
-    }
-    .mode-tab {
-        color: #aaa; /* 非アクティブなタブの文字色 */
-    }
-    .mode-tab.active {
-        background: var(--light-bg);
-        color: var(--primary-color);
-    }
-
-    /* 設定のトグルスイッチ */
-    .toggle-switch {
-        background: #555;
-    }
-
-    /* カテゴリタグのスタイル */
-    .category-tag {
-        background: #333;
-        color: var(--primary-color);
-        border: 1px solid var(--border-color);
-    }
-
-    /* カード裏面の詳細エリア */
-    .drug-details {
-        background: #333; /* 背景色を調整 */
-    }
-    .detail-label {
-        color: var(--primary-color);
-    }
-
-    /* ボタンエリアの背景 */
+@media (max-width: 480px) {
     .button-container {
-        background: var(--light-bg);
+        padding: 8px 6px 14px 6px;
     }
-
-    /* フィードバック表示の背景と文字色 */
-    .feedback-container {
-        background: var(--light-bg);
-        color: var(--dark-color);
-        border: 1px solid var(--border-color);
-    }
-}
-/* ★★★ 検索・フィルター機能のスタイルを追加 ★★★ */
-.filter-container {
-    display: flex;
-    gap: 10px;
-    padding: 15px 20px 0;
-    margin-top: 15px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.search-input, .category-filter {
-    border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
-    font-size: 0.9em;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    transition: background-color 0.3s;
-}
-
-.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.search-input:focus, .category-filter:focus {
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-.search-input {
-    flex: 2; /* 検索バーの幅を広く */
-}
-
-.category-filter {
-    flex: 1;
-}
-
-.category-filter option {
-    color: #333;
-    background-color: #fff;
-}
-
-/* ===== メモセクション用のスタイル（新デザイン） ===== */
-.memo-section {
-    margin: 20px 0 0; /* 上下のマージンを調整 */
-    background: #f9f9fa;
-    border: 1px solid #eef2f5;
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-    text-align: left;
-    overflow: hidden; /* ヘッダーの角丸を有効にするため */
-}
-
-.memo-section h4 {
-    margin: 0;
-    padding: 10px 15px;
-    background: #f1f1f5;
-    border-bottom: 1px solid #eef2f5;
-    font-size: 0.9em;
-    color: #555;
-}
-
-.memo-textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 15px; /* 内側に余白を設ける */
-    border: none;
-    background: transparent;
-    resize: vertical;
-    font-family: inherit;
-    font-size: 0.95em;
-    outline: none;
-    color: var(--dark-color);
-}
-
-/* ===== ダークモード用のメモ欄スタイル ===== */
-@media (prefers-color-scheme: dark) {
-    .memo-section {
-        background: #3a3a3e;
-        border-color: #555;
-    }
-    .memo-section h4 {
-        background: #444448;
-        border-bottom-color: #555;
-        color: #ccc;
-    }
-    .memo-textarea {
-        background: transparent;
-        color: var(--dark-color);
-    }
-}
-
-.plus-alfa-section,
-.memo-section {
-    width: 100%; /* ← この1行で幅がカード全体に広がります */
 }

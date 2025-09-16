@@ -11,12 +11,11 @@
         <header class="header">
             <h1>薬理 暗記カード 🧠</h1>
             <p class="subtitle">AI搭載 高効率学習システム</p>
-            
             <div class="filter-container">
                 <input type="search" id="searchInput" class="search-input" placeholder="薬剤名で検索...">
                 <select id="categoryFilter" class="category-filter">
                     <option value="">すべての分野</option>
-                    </select>
+                </select>
             </div>
         </header>
 
@@ -38,6 +37,7 @@
                 <div class="stat-label">レベル</div>
             </div>
         </div>
+
         <div class="control-panel">
             <div class="mode-tabs">
                 <button class="mode-tab active" data-mode="mixed">混合</button>
@@ -58,44 +58,47 @@
                 <div class="toggle-switch" id="autoToggle"></div>
             </div>
         </div>
+
         <div class="timer-section">
             <div class="timer" id="timer">残り時間: 10:00</div>
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar" style="width: 0%"></div>
             </div>
         </div>
-        
+
         <div class="card-container" id="cardContainer">
-            <div class="importance-badge badge-high" id="importanceBadge"></div>
-            
             <div class="card-content">
-              <div class="card-header-info">  <div class="drug-name" id="drugName">データを読込中...</div>
-                  <div class="category-tag" id="categoryTag"></div>
-              </div>                          <div class="importance-badge badge-high" id="importanceBadge"></div> 
-              
-              <div class="drug-details" id="drugDetails"></div>
-              
-              <div id="plusAlfaSection" class="plus-alfa-section" style="display: none;">
-                  <h4>💡 ワンポイント</h4>
-                  <div id="plusAlfaContent" class="plus-alfa-content"></div>
-              </div>
-              <div id="memoSection" class="memo-section" style="display: none;">
-                  <h4>📝 自分用メモ</h4>
-                  <textarea id="memoTextarea" class="memo-textarea" placeholder="この薬に関するメモを自由に入力..."></textarea>
-              </div>
+                <div class="importance-badge badge-high" id="importanceBadge"></div>
+                <div class="card-header-info">
+                    <div class="drug-name" id="drugName">データを読込中...</div>
+                    <div class="category-tag" id="categoryTag"></div>
+                </div>
+                <div class="drug-details" id="drugDetails"></div>
+                <div id="plusAlfaSection" class="plus-alfa-section" style="display: none;">
+                    <h4>💡 ワンポイント</h4>
+                    <div id="plusAlfaContent" class="plus-alfa-content"></div>
+                </div>
+                <div id="memoSection" class="memo-section" style="display: none;">
+                    <h4>📝 自分用メモ</h4>
+                    <textarea id="memoTextarea" class="memo-textarea" placeholder="この薬に関するメモを自由に入力..."></textarea>
+                </div>
             </div>
         </div>
-
+        <!-- ボタンをカード直下に移動 -->
         <div class="button-container">
             <div class="button-group" id="initialButtons">
                 <button class="btn btn-primary" id="showAnswerBtn">答えを見る</button>
             </div>
             <div class="button-group" id="answerButtons" style="display: none;">
-                <button class="btn btn-danger" onclick="answerCard('again')">再学習<br><small>1分後</small></button>
-                <button class="btn btn-warning" onclick="answerCard('hard')">難しい<br><small>6分後</small></button>
-                <button class="btn btn-success" onclick="answerCard('good')">普通<br><small>1日後</small></button>
-                <button class="btn btn-primary" onclick="answerCard('easy')">簡単<br><small>4日後</small></button>
-            </div>
+                </div>
+        </div>
+        <!-- スワイプガイド -->
+        <div class="swipe-guide">
+            <span class="swipe-arrow swipe-left">←</span>
+            <span>苦手・もう一度</span>
+            <span class="swipe-separator">|</span>
+            <span>覚えた！</span>
+            <span class="swipe-arrow swipe-right">→</span>
         </div>
     </div>
 
