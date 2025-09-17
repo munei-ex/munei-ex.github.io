@@ -93,9 +93,43 @@ class PharmaFlashcardApp {
         this.updateCardDisplay();
     }
     // セッションタイマーのダミー実装（必要に応じて本実装可）
-    startTimer() {
-        // 必要に応じてタイマーUIや残り時間管理を実装
-        // 例: document.getElementById('timer').textContent = '残り時間: 10:00';
+    // app.js の startTimer 関数を丸ごと書き換え
+
+startTimer() {
+    // 既にタイマーが動いていたら一度停止する
+    if (this.timerInterval) {
+        clearInterval(this.timerInterval);
+    }
+    
+    // 開始時刻を現在時刻にリセット
+    this.sessionStartTime = Date.now();
+
+    // 1秒ごとに実行する処理を開始
+    this.timerInterval = setInterval(() => {
+        const elapsedTime = Date.now() - this.sessionStartTime; // 経過時間
+        const remainingTime = this.sessionDuration - elapsedTime; // 残り時間
+
+        // 残り時間が0になったらタイマーを停止
+        if (remainingTime <= 0) {
+            clearInterval(this.timerInterval);
+            document.getElementById('timer').textContent = "⏰ 時間です！";
+            document.getElementById('progressBar').style.width = '100%';
+            // 時間切れになったらカード操作をできなくするなどの処理も追加可能
+            return;
+        }
+
+        // プログレスバーの幅を更新
+        const progressPercentage = (elapsedTime / this.sessionDuration) * 100;
+        document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+
+        // MM:SS 形式で残り時間を表示
+        const minutes = Math.floor(remainingTime / 60000);
+        const seconds = Math.floor((remainingTime % 60000) / 1000);
+        // 秒が1桁の場合、`05`のように0で埋める
+        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('timer').textContent = `残り時間: ${formattedTime}`;
+
+    }, 1000); // 1000ミリ秒 = 1秒ごとに実行
     }
     // 苦手分野TOP3をUIに表示
     // (重複定義を削除しました)
@@ -286,6 +320,7 @@ class PharmaFlashcardApp {
         this.sessionStartTime = Date.now();
         this.sessionDuration = 10 * 60 * 1000;
         this.isAnswerShown = false;
+        this.timerInterval = null; // ← この行を追加！
 
         // ★★★ 変更点：localStorageから設定と統計を読み込む ★★★
         const savedSettings = JSON.parse(localStorage.getItem('pharma_settings'));
@@ -755,11 +790,19 @@ class PharmaFlashcardApp {
 
     // スワイプ系の処理をまとめて簡潔に
     handleSwipeStart(e) {
-        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
-        if (!this.isAnswerShown) return;
-        this.touchStartX = e.touches ? e.touches[0].clientX : e.clientX;
+    if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+    
+    // スワイプが始まっていなくても、タップの判定用に座標と時刻を記録
+    this.touchStartX = e.touches ? e.touches[0].clientX : e.clientX;
+    this.touchStartY = e.touches ? e.touches[0].clientY : e.clientY; // Y座標も記録
+    this.touchStartTime = Date.now(); // タップ開始時刻を記録
+    
+    // 答えが表示されている時のみスワイプを有効にする
+    if (this.isAnswerShown) {
         this.isSwiping = true;
     }
+    }
+
     handleSwipeMove(e) {
         if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
         if (!this.isSwiping || !this.isAnswerShown) return;
@@ -771,26 +814,60 @@ class PharmaFlashcardApp {
         cardContainer.classList.toggle('swiping-left', diffX < -20);
     }
     handleSwipeEnd(e) {
-        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
-        if (!this.isSwiping || !this.isAnswerShown) return;
-        this.isSwiping = false;
-        const diffX = this.touchCurrentX - this.touchStartX;
-        const cardContainer = document.getElementById('cardContainer');
-        cardContainer.style.transform = '';
-        cardContainer.classList.remove('swiping-left', 'swiping-right');
-        const swipeThreshold = 80;
-        // スワイプしきい値を超えた場合のみ進める
-        if (diffX > swipeThreshold) {
-            this.answerCard('easy');
-            this.suppressNextTap = true;
-        } else if (diffX < -swipeThreshold) {
-            this.answerCard('again');
+    if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+
+    const touchEndX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const touchEndY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+
+    const diffX = touchEndX - this.touchStartX;
+    const diffY = touchEndY - this.touchStartY; // Y方向の移動量
+    const touchDuration = Date.now() - this.touchStartTime; // タップ時間を計算
+
+    // スワイプ操作の判定
+    if (this.isAnswerShown && this.isSwiping) {
+        const swipeThreshold = 80; // スワイプと判定する最小距離
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
+            // 左右のスワイプが確定した場合
+            if (diffX > swipeThreshold) {
+                this.answerCard('easy');
+            } else if (diffX < -swipeThreshold) {
+                this.answerCard('again');
+            }
             this.suppressNextTap = true;
         }
-        // しきい値未満なら何もしない（clickイベントでのみ表裏切り替え）
-        this.touchStartX = 0;
-        this.touchCurrentX = 0;
     }
+    
+    // タップ操作の判定（移動距離が小さく、時間も短い場合）
+    if (Math.abs(diffX) < 10 && Math.abs(diffY) < 10 && touchDuration < 200) {
+        if (this.settings.autoProgress) return;
+        
+        // 既存のタップ処理をここに移動
+        this.cancelAutoProgress();
+        if (!this.isAnswerShown) {
+            this.showAnswer();
+        } else {
+            // 裏面タップ時は表面に戻す
+            this.isAnswerShown = false;
+            document.getElementById('drugDetails').classList.remove('show');
+            this.updateButtons();
+            document.getElementById('plusAlfaSection').style.display = 'none';
+            document.getElementById('memoSection').style.display = 'none';
+        }
+    }
+
+    // スワイプ状態とカードの見た目をリセット
+    this.isSwiping = false;
+    const cardContainer = document.getElementById('cardContainer');
+    cardContainer.style.transform = '';
+    cardContainer.classList.remove('swiping-left', 'swiping-right');
+    
+    // 各種座標・時刻をリセット
+    this.touchStartX = 0;
+    this.touchStartY = 0;
+    this.touchCurrentX = 0;
+    this.touchStartTime = 0;
+    }
+
     handleSwipeCancel(e) {
         if (this.isSwiping) {
             this.isSwiping = false;

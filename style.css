@@ -517,14 +517,14 @@ body {
     color: var(--dark-color);
 }
 
+/* ★★★ スワイプ中のスタイル（改良版） ★★★ */
 .card-container.swiping-right {
-    transform: translateX(30px) rotate(5deg);
-    background-color: rgba(76, 175, 80, 0.1);
+  /* transformプロパティを削除し、背景色だけを指定 */
+  background-color: rgba(76, 175, 80, 0.35); /* 緑色の背景を濃くした */
 }
-
 .card-container.swiping-left {
-    transform: translateX(-30px) rotate(-5deg);
-    background-color: rgba(244, 67, 54, 0.1);
+  /* transformプロパティを削除し、背景色だけを指定 */
+  background-color: rgba(244, 67, 54, 0.35); /* 赤色の背景を濃くした */
 }
 
 
