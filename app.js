@@ -94,6 +94,33 @@ class PharmaFlashcardApp {
     }
     // セッションタイマーのダミー実装（必要に応じて本実装可）
     // app.js の startTimer 関数を丸ごと書き換え
+    // app.js の PharmaFlashcardApp クラス内にこの関数を追加
+
+updateTimerDisplay() {
+    const elapsedTime = Date.now() - this.sessionStartTime; // 経過時間
+    const remainingTime = this.sessionDuration - elapsedTime; // 残り時間
+
+    // 残り時間が0になったらタイマーを停止
+    if (remainingTime <= 0) {
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        document.getElementById('timer').textContent = "⏰ 時間です！";
+        document.getElementById('progressBar').style.width = '100%';
+        return;
+    }
+
+    // プログレスバーの幅を更新
+    const progressPercentage = (elapsedTime / this.sessionDuration) * 100;
+    document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+
+    // MM:SS 形式で残り時間を表示
+    const minutes = Math.floor(remainingTime / 60000);
+    const seconds = Math.floor((remainingTime % 60000) / 1000);
+    // 秒が1桁の場合、`05`のように0で埋める
+    const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById('timer').textContent = `残り時間: ${formattedTime}`;
+}
+
+    // app.js の startTimer 関数を丸ごと書き換え
 
 startTimer() {
     // 既にタイマーが動いていたら一度停止する
@@ -104,33 +131,10 @@ startTimer() {
     // 開始時刻を現在時刻にリセット
     this.sessionStartTime = Date.now();
 
-    // 1秒ごとに実行する処理を開始
-    this.timerInterval = setInterval(() => {
-        const elapsedTime = Date.now() - this.sessionStartTime; // 経過時間
-        const remainingTime = this.sessionDuration - elapsedTime; // 残り時間
-
-        // 残り時間が0になったらタイマーを停止
-        if (remainingTime <= 0) {
-            clearInterval(this.timerInterval);
-            document.getElementById('timer').textContent = "⏰ 時間です！";
-            document.getElementById('progressBar').style.width = '100%';
-            // 時間切れになったらカード操作をできなくするなどの処理も追加可能
-            return;
-        }
-
-        // プログレスバーの幅を更新
-        const progressPercentage = (elapsedTime / this.sessionDuration) * 100;
-        document.getElementById('progressBar').style.width = `${progressPercentage}%`;
-
-        // MM:SS 形式で残り時間を表示
-        const minutes = Math.floor(remainingTime / 60000);
-        const seconds = Math.floor((remainingTime % 60000) / 1000);
-        // 秒が1桁の場合、`05`のように0で埋める
-        const formattedTime = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        document.getElementById('timer').textContent = `残り時間: ${formattedTime}`;
-
-    }, 1000); // 1000ミリ秒 = 1秒ごとに実行
-    }
+    // 最初に一度表示を更新し、その後1秒ごとに更新を繰り返す
+    this.updateTimerDisplay();
+    this.timerInterval = setInterval(() => this.updateTimerDisplay(), 1000);
+}
     // 苦手分野TOP3をUIに表示
     // (重複定義を削除しました)
     // 分野ごとの正答率を集計し、苦手TOP3分野を返す
@@ -288,6 +292,15 @@ startTimer() {
                 document.getElementById('memoSection').style.display = 'none';
             }
         });
+
+        document.addEventListener('visibilitychange', () => {
+        // ページが非表示から表示状態に変わった瞬間にタイマー表示を強制的に更新
+        if (document.visibilityState === 'visible') {
+            this.updateTimerDisplay();
+        }
+    });
+
+        
     }
 
     filterDrugs(searchTerm, category) {
