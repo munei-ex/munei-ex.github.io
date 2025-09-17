@@ -238,7 +238,10 @@ startTimer() {
             this.filterDrugs(document.getElementById('searchInput').value, e.target.value);
         });
         
-        document.getElementById('showAnswerBtn').addEventListener('click', () => this.showAnswer());
+        document.getElementById('showAnswerBtn').addEventListener('touchstart', (e) => {
+            e.preventDefault(); // 連続タップなどの誤作動を防止
+            this.showAnswer();
+        });
 
         document.getElementById('memoTextarea').addEventListener('input', () => {
             if (!this.currentCard) return;
@@ -263,35 +266,6 @@ startTimer() {
         );
         cardContainer.addEventListener('mouseleave', e => this.handleSwipeCancel(e));
 
-        // タップ/クリックで表裏切り替え（autoProgress時は無効化）
-        this.tapLock = false;
-        this.suppressNextTap = false; // スワイプで進めた直後のタップ抑制用
-        cardContainer.addEventListener('click', (e) => {
-            if (
-                e.target.closest('#memoSection') ||
-                e.target.closest('.button-container') ||
-                e.target.closest('button')
-            ) return;
-            if (this.settings.autoProgress) return;
-            if (this.tapLock) return;
-            if (this.suppressNextTap) {
-                this.suppressNextTap = false;
-                return;
-            }
-            this.tapLock = true;
-            this.tapLock = false;
-            this.cancelAutoProgress();
-            if (!this.isAnswerShown) {
-                this.showAnswer();
-            } else {
-                // 裏面タップ時は表面に戻す
-                this.isAnswerShown = false;
-                document.getElementById('drugDetails').classList.remove('show');
-                this.updateButtons();
-                document.getElementById('plusAlfaSection').style.display = 'none';
-                document.getElementById('memoSection').style.display = 'none';
-            }
-        });
 
         document.addEventListener('visibilitychange', () => {
         // ページが非表示から表示状態に変わった瞬間にタイマー表示を強制的に更新
@@ -851,7 +825,7 @@ startTimer() {
     }
     
     // タップ操作の判定（移動距離が小さく、時間も短い場合）
-    if (Math.abs(diffX) < 10 && Math.abs(diffY) < 10 && touchDuration < 200) {
+    if (Math.abs(diffX) < 15 && Math.abs(diffY) < 15 && touchDuration < 250) {
         if (this.settings.autoProgress) return;
         
         // 既存のタップ処理をここに移動
