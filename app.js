@@ -790,16 +790,23 @@ startTimer() {
     }
     }
 
-    handleSwipeMove(e) {
-        if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
-        if (!this.isSwiping || !this.isAnswerShown) return;
-        this.touchCurrentX = e.touches ? e.touches[0].clientX : e.clientX;
-        const diffX = this.touchCurrentX - this.touchStartX;
-        const cardContainer = document.getElementById('cardContainer');
+    // app.js の handleSwipeMove 関数を丸ごと書き換え
+
+handleSwipeMove(e) {
+    if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
+    if (!this.isSwiping || !this.isAnswerShown) return;
+    
+    this.touchCurrentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const diffX = this.touchCurrentX - this.touchStartX;
+    const cardContainer = document.getElementById('cardContainer');
+    
+    // 指が10px以上動いた場合にのみ、スワイプのアニメーションを開始する
+    if (Math.abs(diffX) > 10) {
         cardContainer.style.transform = `translateX(${diffX}px) rotate(${diffX / 20}deg)`;
         cardContainer.classList.toggle('swiping-right', diffX > 20);
         cardContainer.classList.toggle('swiping-left', diffX < -20);
     }
+}
     handleSwipeEnd(e) {
     if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
 
@@ -825,7 +832,7 @@ startTimer() {
     }
     
     // タップ操作の判定（移動距離が小さく、時間も短い場合）
-    if (Math.abs(diffX) < 15 && Math.abs(diffY) < 15 && touchDuration < 250) {
+    if (Math.abs(diffX) < 15 && Math.abs(diffY) < 15 && touchDuration < 20) {
         if (this.settings.autoProgress) return;
         
         // 既存のタップ処理をここに移動
