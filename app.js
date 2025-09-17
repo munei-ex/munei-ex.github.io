@@ -256,7 +256,7 @@ startTimer() {
 
         // スワイプイベント
         ['touchstart', 'mousedown'].forEach(evt =>
-            cardContainer.addEventListener(evt, e => this.handleSwipeStart(e), { passive: true })
+            cardContainer.addEventListener(evt, e => this.handleSwipeStart(e))
         );
         ['touchmove', 'mousemove'].forEach(evt =>
             cardContainer.addEventListener(evt, e => this.handleSwipeMove(e))
