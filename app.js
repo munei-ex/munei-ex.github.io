@@ -259,7 +259,7 @@ startTimer() {
             cardContainer.addEventListener(evt, e => this.handleSwipeStart(e), { passive: true })
         );
         ['touchmove', 'mousemove'].forEach(evt =>
-            cardContainer.addEventListener(evt, e => this.handleSwipeMove(e), { passive: true })
+            cardContainer.addEventListener(evt, e => this.handleSwipeMove(e))
         );
         ['touchend', 'mouseup'].forEach(evt =>
             cardContainer.addEventListener(evt, e => this.handleSwipeEnd(e))
@@ -797,6 +797,9 @@ startTimer() {
     handleSwipeMove(e) {
         if (e.target && e.target.closest && e.target.closest('#memoTextarea')) return;
         if (!this.isSwiping || !this.isAnswerShown) return;
+
+        // スクロールなどのデフォルト動作を停止する命令
+        e.preventDefault(); // ← この一行を追加！
         
         this.touchCurrentX = e.touches ? e.touches[0].clientX : e.clientX;
         const diffX = this.touchCurrentX - this.touchStartX;
